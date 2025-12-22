@@ -1,5 +1,5 @@
 import { BrowseIcon } from '../../assets/icons/BrowseIcon';
-import { DownloadOurApp } from '../../assets/icons/DownloadOurApp.tsx';
+import { DownloadOurApp } from '../../assets/icons/DownloadOurAppIcon.tsx';
 import { FriendActivityIcon } from '../../assets/icons/FriendActivityIcon.tsx';
 import { HomePageIcon } from '../../assets/icons/HomePageIcon';
 import { NotificationsIcon } from '../../assets/icons/NotificationsIcon.tsx';

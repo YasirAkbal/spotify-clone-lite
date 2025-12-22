@@ -1,18 +1,16 @@
-import Header from './components/layout/Header.tsx';
-import LeftSidebar from './components/layout/LeftSidebar.tsx';
-import HomePage from './pages/HomePage.tsx';
-import RightSidebar from './components/layout/RightSidebar.tsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './components/layout/Layout';
+import HomePage from './features/home/HomePage';
 
 function App() {
   return (
-    <div className="h-screen flex flex-col">
-      <Header />
-      <div className="flex flex-1 overflow-hidden">
-        <LeftSidebar />
-        <HomePage />
-        <RightSidebar />
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
