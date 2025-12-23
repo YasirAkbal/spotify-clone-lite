@@ -41,7 +41,7 @@ export default function Login() {
       <Button>Facebook ile devam et</Button>
       <Button>Apple ile devam et</Button>
 
-      <div>
+      <div className="flex flex-col items-center">
         <p>Hesabın yok mu?</p>
         <a href="/signup">Kaydol</a>
       </div>

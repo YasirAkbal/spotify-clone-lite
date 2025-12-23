@@ -1,6 +1,3 @@
-import { ErrorBoundary } from 'react-error-boundary';
-import { QueryErrorResetBoundary } from '@tanstack/react-query';
-
 interface FallbackProps {
   error: Error;
   resetErrorBoundary: () => void;

@@ -1,9 +1,9 @@
-import { QueryClient, QueryClientProvider, QueryCache } from '@tanstack/react-query';
+import { QueryClient, QueryCache } from '@tanstack/react-query';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      throwOnError: (error, query) => {
+      throwOnError: (_error, query) => {
         //if there isn't any data to show user, fallback to ErrorComponent
         return typeof query.state.data === 'undefined';
       },
