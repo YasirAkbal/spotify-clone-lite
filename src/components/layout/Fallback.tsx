@@ -4,6 +4,7 @@ interface FallbackProps {
 }
 
 export default function Fallback({ error, resetErrorBoundary }: FallbackProps) {
+  console.log(error);
   return (
     <>
       <p>Error: {error.message}</p>

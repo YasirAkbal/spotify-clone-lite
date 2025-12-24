@@ -1,20 +1,46 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuth, logout } from '../store/authSlice';
 import type { RootState } from '../../../app/store';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
 
-  const loginMutation = useMutation({
-    mutationFn: async (credentials: { email: string; password: string }) => {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify(credentials),
+  // Check session on load if token exists but user is missing
+  const { data: userProfile, isError } = useQuery({
+    queryKey: ['auth', 'me'],
+    queryFn: async () => {
+      const res = await axios.get('/api/auth/me', {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
       });
+      return res.data;
+    },
+    enabled: !!auth.token && auth.token !== 'null' && auth.token !== 'undefined' && !auth.user,
+    retry: false,
+  });
 
-      return res.json();
+  useEffect(() => {
+    if (userProfile && auth.token) {
+      dispatch(setAuth({ user: userProfile, token: auth.token }));
+    }
+  }, [userProfile, auth.token, dispatch]);
+
+  useEffect(() => {
+    if (isError) {
+      dispatch(logout());
+    }
+  }, [isError, dispatch]);
+
+  const loginMutation = useMutation({
+    mutationFn: async (credentials: { email: string; password?: string }) => {
+      const res = await axios.post('/api/auth/login', credentials);
+
+      return res.data;
     },
     onSuccess: (data) => {
       dispatch(setAuth({ user: data.user, token: data.token }));
@@ -23,12 +49,9 @@ export const useAuth = () => {
 
   const signupMutation = useMutation({
     mutationFn: async (data: { email: string; password: string }) => {
-      const res = await fetch('api/auth/signup', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      });
+      const res = await axios.post('/api/auth/signup', data);
 
-      return res.json();
+      return res.data;
     },
     onSuccess: (data) => {
       dispatch(setAuth({ user: data.user, token: data.token }));

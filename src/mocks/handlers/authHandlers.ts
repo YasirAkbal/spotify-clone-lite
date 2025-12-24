@@ -21,6 +21,38 @@ const users: User[] = [
 
 let currentUser: User | null = null;
 
+// Mock JWT Helper Functions
+const SECRET_KEY = 'spotify-mock-secret-key';
+
+const createToken = (user: User) => {
+  const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
+  const payload = btoa(
+    JSON.stringify({
+      sub: user.id,
+      exp: Date.now() + 1000 * 60 * 60 * 24, // 24 hours
+    })
+  );
+  const signature = btoa(`${header}.${payload}.${SECRET_KEY}`);
+  return `${header}.${payload}.${signature}`;
+};
+
+const verifyToken = (token: string) => {
+  try {
+    const [header, payload, signature] = token.split('.');
+    if (!header || !payload || !signature) return null;
+
+    const expectedSignature = btoa(`${header}.${payload}.${SECRET_KEY}`);
+    if (signature !== expectedSignature) return null;
+
+    const decodedPayload = JSON.parse(atob(payload));
+    if (decodedPayload.exp < Date.now()) return null;
+
+    return users.find((u) => u.id === decodedPayload.sub) || null;
+  } catch (error) {
+    return null;
+  }
+};
+
 export const authHandlers = [
   // Register
   http.post('/api/auth/register', async ({ request }) => {
@@ -42,7 +74,7 @@ export const authHandlers = [
     users.push(newUser);
     currentUser = newUser;
 
-    const token = btoa(JSON.stringify({ userId: newUser.id }));
+    const token = createToken(newUser);
 
     return HttpResponse.json({
       user: {
@@ -56,7 +88,12 @@ export const authHandlers = [
   }),
 
   http.post('/api/auth/login', async ({ request }) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
     const body = (await request.json()) as { email: string; password: string };
+
+    if (!body.email && !body.password) {
+      return HttpResponse.json({ message: 'Email and password are required' }, { status: 400 });
+    }
 
     const user = users.find((u) => u.email === body.email && u.password === body.password);
 
@@ -65,7 +102,7 @@ export const authHandlers = [
     }
 
     currentUser = user;
-    const token = btoa(JSON.stringify({ userId: user.id }));
+    const token = createToken(user);
 
     return HttpResponse.json({
       user: {
@@ -86,24 +123,18 @@ export const authHandlers = [
     }
 
     const token = authHeader.replace('Bearer ', '');
+    const user = verifyToken(token);
 
-    try {
-      const decoded = JSON.parse(atob(token)) as { userId: string };
-      const user = users.find((u) => u.id === decoded.userId);
-
-      if (!user) {
-        return HttpResponse.json({ message: 'User not found' }, { status: 404 });
-      }
-
-      return HttpResponse.json({
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        avatar: user.avatar,
-      });
-    } catch {
-      return HttpResponse.json({ message: 'Invalid token' }, { status: 401 });
+    if (!user) {
+      return HttpResponse.json({ message: 'Invalid or expired token' }, { status: 401 });
     }
+
+    return HttpResponse.json({
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      avatar: user.avatar,
+    });
   }),
 
   http.post('/api/auth/logout', () => {

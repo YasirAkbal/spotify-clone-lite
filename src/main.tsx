@@ -9,18 +9,32 @@ import { QueryClientProvider, QueryErrorResetBoundary } from '@tanstack/react-qu
 import { ErrorBoundary } from 'react-error-boundary';
 import Fallback from './components/layout/Fallback.tsx';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <QueryErrorResetBoundary>
-      {({ reset }) => (
-        <ErrorBoundary onReset={reset} FallbackComponent={Fallback}>
-          <Provider store={store}>
-            <QueryClientProvider client={queryClient}>
-              <App />
-            </QueryClientProvider>
-          </Provider>
-        </ErrorBoundary>
-      )}
-    </QueryErrorResetBoundary>
-  </StrictMode>
-);
+async function enableMocking() {
+  if (process.env.NODE_ENV !== 'development') {
+    return;
+  }
+
+  const { worker } = await import('./mocks/browser');
+
+  // `worker.start()` returns a Promise that resolves
+  // once the Service Worker is up and ready to intercept requests.
+  return worker.start();
+}
+
+enableMocking().then(() => {
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <QueryErrorResetBoundary>
+        {({ reset }) => (
+          <ErrorBoundary onReset={reset} FallbackComponent={Fallback}>
+            <Provider store={store}>
+              <QueryClientProvider client={queryClient}>
+                <App />
+              </QueryClientProvider>
+            </Provider>
+          </ErrorBoundary>
+        )}
+      </QueryErrorResetBoundary>
+    </StrictMode>
+  );
+});
