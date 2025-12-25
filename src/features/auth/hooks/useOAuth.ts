@@ -4,6 +4,7 @@ import { setAuth, logout } from '../store/oAuthSlice';
 import type { RootState } from '../../../app/store';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
 
 export default function useOAuth() {
   const dispatch = useDispatch();
@@ -16,9 +17,7 @@ export default function useOAuth() {
   const SCOPE = 'user-read-private user-read-email';
   const authUrl = new URL('https://accounts.spotify.com/authorize');
 
-  let codeVerifier: string | undefined = undefined;
-  let codeChallenge: string | undefined = undefined;
-  let accessToken: string | undefined = undefined;
+  const codeChallengeRef = useRef<string>(undefined);
 
   const exchangeTokenMutation = useMutation({
     mutationFn: async (code: string) => {
@@ -45,7 +44,6 @@ export default function useOAuth() {
     },
     onSuccess: (data) => {
       dispatch(setAuth(data));
-      accessToken = data.access_token;
       localStorage.setItem('access_token', data.access_token);
       localStorage.removeItem('code_verifier');
       navigate('/');
@@ -75,26 +73,21 @@ export default function useOAuth() {
   };
 
   function generateCodeVerifier() {
-    codeVerifier = generateRandomString(64);
-  }
-
-  function setCodeVerifierToLocalStorage() {
-    if (!codeVerifier) {
-      throw new Error('Code verifier must be generated first');
-    }
-    window.localStorage.setItem('code_verifier', codeVerifier);
+    const verifier = generateRandomString(64);
+    localStorage.setItem('code_verifier', verifier);
   }
 
   async function generateCodeChallange() {
-    if (!codeVerifier) {
+    const storedVerifier = localStorage.getItem('code_verifier');
+    if (!storedVerifier) {
       throw new Error('Code verifier must be generated first');
     }
-    const hashed = await sha256(codeVerifier);
-    codeChallenge = base64encode(hashed);
+    const hashed = await sha256(storedVerifier);
+    codeChallengeRef.current = base64encode(hashed);
   }
 
   function getAuthUrl() {
-    if (!codeChallenge) {
+    if (!codeChallengeRef.current) {
       throw new Error('Code challenge must be generated first');
     }
 
@@ -103,7 +96,7 @@ export default function useOAuth() {
       client_id: CLIENT_ID,
       scope: SCOPE,
       code_challenge_method: 'S256',
-      code_challenge: codeChallenge,
+      code_challenge: codeChallengeRef.current,
       redirect_uri: REDIRECT_URL,
     };
 
@@ -113,12 +106,11 @@ export default function useOAuth() {
   }
 
   function getAccessToken() {
-    return accessToken;
+    return localStorage.getItem('access_token');
   }
 
   return {
     generateCodeVerifier,
-    setCodeVerifierToLocalStorage,
     generateCodeChallange,
     getAuthUrl,
     getAccessToken,

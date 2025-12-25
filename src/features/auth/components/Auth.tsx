@@ -22,12 +22,10 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const { generateCodeVerifier, setCodeVerifierToLocalStorage, generateCodeChallange, getAuthUrl } =
-    useOAuth();
+  const { generateCodeVerifier, generateCodeChallange, getAuthUrl } = useOAuth();
 
   async function handleOAuthLogin() {
     generateCodeVerifier();
-    setCodeVerifierToLocalStorage();
     await generateCodeChallange();
     const authUrl = getAuthUrl();
     navigate(authUrl);
