@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuth, logout } from '../store/authSlice';
+import { setAuth, logout } from '../store/fakeAuthSlice';
 import type { RootState } from '../../../app/store';
 import axios from 'axios';
 import { useEffect } from 'react';

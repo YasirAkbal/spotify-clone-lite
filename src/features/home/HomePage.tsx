@@ -6,11 +6,7 @@ import PodcastsTabContent from './components/PodcastsTabContent';
 export default function HomePage() {
   return (
     <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-white mb-4">İyi akşamlar</h1>
-      </div>
-
-      <Tabs.Root className="TabsRoot" defaultValue="all">
+      <Tabs.Root className="TabsRoot text-white" defaultValue="all">
         <Tabs.List className="TabsList mb-6" aria-label="Select media type">
           <Tabs.Trigger className="TabsTrigger" value="all">
             Tümü

@@ -3,8 +3,9 @@ import { useForm } from 'react-hook-form';
 import FormField from '../../../components/ui/FormField';
 import TextInput from '../../../components/ui/TextInput';
 import Button from '../../../components/ui/Button';
-import { useAuth } from '../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useFakeAuth';
+import { Navigate, useNavigate } from 'react-router-dom';
+import useOAuth from '../hooks/useOAuth';
 
 export default function Login() {
   const {
@@ -13,16 +14,28 @@ export default function Login() {
     handleSubmit,
   } = useForm<{ email: string; password: string }>();
 
-  const { login, isLoggingIn, loginError } = useAuth();
-  const navigate = useNavigate();
+  const { login, isLoggingIn, loginError, isAuthenticated } = useAuth();
 
   const onSubmit = (data: { email: string; password: string }) => {
-    login(data, {
-      onSuccess: () => {
-        navigate('/');
-      },
-    });
+    login(data);
   };
+
+  const navigate = useNavigate();
+
+  const { generateCodeVerifier, setCodeVerifierToLocalStorage, generateCodeChallange, getAuthUrl } =
+    useOAuth();
+
+  async function handleOAuthLogin() {
+    generateCodeVerifier();
+    setCodeVerifierToLocalStorage();
+    await generateCodeChallange();
+    const authUrl = getAuthUrl();
+    navigate(authUrl);
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="flex flex-col items-center bg-black text-white gap-4 h-[100vh] justify-center">
@@ -58,6 +71,9 @@ export default function Login() {
         </Button>
       </form>
       <span>veya</span>
+      <Button className="bg-orange-600 hover:bg-orange-500" onClick={handleOAuthLogin}>
+        Spotify ile devam et
+      </Button>
       <Button>Google ile devam et</Button>
       <Button>Facebook ile devam et</Button>
       <Button>Apple ile devam et</Button>
