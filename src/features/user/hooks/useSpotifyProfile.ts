@@ -1,23 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import useOAuth from '../../auth/hooks/useOAuth';
-import { fetchWithSchema } from '../../../lib/apiClient.ts';
-import { CurrentUserProfile } from '../schemas.ts';
 import { useAppDispatch } from '../../../app/hooks.ts';
 import { setUserProfileData, clearUserProfileData } from '../store/spotifyProfileSlice.ts';
+import { userQueries } from '../../../services/api/userQueries.ts';
+import { tokenStorage } from '../../../utils/tokenStorage.ts';
 
 export default function useSpotifyProfile() {
-  const { getAccessToken } = useOAuth();
-  const token = getAccessToken();
+  const token = tokenStorage.getAccessToken();
   const dispatch = useAppDispatch();
 
   const { data, isSuccess, isError } = useQuery({
-    queryKey: ['spotifyProfile', token],
-    queryFn: () =>
-      fetchWithSchema(CurrentUserProfile, {
-        url: '/me',
-        headers: { Authorization: `Bearer ${token}` },
-      }),
+    ...userQueries.profile(),
     enabled: !!token,
   });
 

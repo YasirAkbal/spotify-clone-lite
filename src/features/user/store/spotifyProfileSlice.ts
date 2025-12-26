@@ -1,10 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { type CurrentUserProfileType } from '../schemas';
-
-interface UserState {
-  profile: CurrentUserProfileType | null;
-}
+import type { CurrentUserProfileType, UserState } from '../../../types';
 
 const initialState: UserState = {
   profile: null,

@@ -1,8 +1,18 @@
 import axios, { type AxiosRequestConfig } from 'axios';
 import { z } from 'zod';
+import { CONSTANTS } from '../constants/constants';
+import { tokenStorage } from '../utils/tokenStorage';
 
 export const apiClient = axios.create({
-  baseURL: 'https://api.spotify.com/v1',
+  baseURL: CONSTANTS.SPOTIFY_API_BASE_URL,
+});
+
+apiClient.interceptors.request.use((config) => {
+  const token = tokenStorage.getAccessToken();
+  if (token) {
+    config.headers.Authorization = `${CONSTANTS.BEARER} ${token}`;
+  }
+  return config;
 });
 
 export async function fetchWithSchema<T extends z.ZodTypeAny>(

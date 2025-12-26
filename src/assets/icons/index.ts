@@ -9,4 +9,4 @@ export { NotificationsIcon } from './NotificationsIcon';
 export { SearchIcon } from './SearchIcon';
 export { SpotifyLogo } from './SpotifyLogo';
 
-export type { IconProps } from './types';
+export type { IconProps } from '../../types';

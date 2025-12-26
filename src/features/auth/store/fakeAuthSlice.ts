@@ -1,39 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import type { FakeAuthState, FakeAuthPayload } from '../../../types';
 
-interface AuthState {
-  user: { id: string; email: string; name?: string; avatar?: string } | null;
-  token: string | null;
-  isAuthenticated: boolean;
-}
+const TOKEN = 'token';
 
-const initialState: AuthState = {
-  user: null,
-  token: localStorage.getItem('token'),
-  isAuthenticated: Boolean(localStorage.getItem('token')),
+const storedToken = localStorage.getItem(TOKEN);
+
+const initialState: FakeAuthState = {
+  auth: storedToken ? { user: { id: '', email: '' }, token: storedToken } : null,
+  isAuthenticated: Boolean(storedToken),
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setAuth: (
-      state,
-      action: PayloadAction<{
-        user: { id: string; email: string; name?: string; avatar?: string };
-        token: string;
-      }>
-    ) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
+    setAuth: (state, action: PayloadAction<FakeAuthPayload>) => {
+      state.auth = action.payload;
       state.isAuthenticated = true;
-      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem(TOKEN, action.payload.token);
     },
     logout: (state) => {
-      state.user = null;
-      state.token = null;
+      state.auth = null;
       state.isAuthenticated = false;
-      localStorage.removeItem('token');
+      localStorage.removeItem(TOKEN);
     },
   },
 });

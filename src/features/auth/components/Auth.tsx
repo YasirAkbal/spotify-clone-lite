@@ -6,6 +6,7 @@ import Button from '../../../components/ui/Button';
 import { useAuth } from '../hooks/useFakeAuth';
 import { Navigate, useNavigate } from 'react-router-dom';
 import useOAuth from '../hooks/useOAuth';
+import { ROUTES } from '../../../constants/routeConstants';
 
 export default function Login() {
   const {
@@ -32,7 +33,7 @@ export default function Login() {
   }
 
   if (isAuthenticated) {
-    return <Navigate to="/" replace />;
+    return <Navigate to={ROUTES.HOME} replace />;
   }
 
   return (

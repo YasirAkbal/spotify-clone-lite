@@ -1,3 +1,7 @@
+/**
+ * Icon Component Props
+ */
+
 export interface IconProps {
   size?: number;
   className?: string;

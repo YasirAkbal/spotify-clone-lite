@@ -4,6 +4,9 @@ import { setAuth } from '../store/oAuthSlice';
 import { useAppDispatch } from '../../../app/hooks';
 import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
+import { tokenStorage } from '../../../utils/tokenStorage';
+import { ROUTES } from '../../../constants/routeConstants';
+import { SpotifyTokenResponseSchema } from '../schemas';
 
 export default function useOAuth() {
   const dispatch = useAppDispatch();
@@ -39,13 +42,13 @@ export default function useOAuth() {
         },
       });
 
-      return response.data;
+      return SpotifyTokenResponseSchema.parse(response.data);
     },
     onSuccess: (data) => {
       dispatch(setAuth(data));
-      localStorage.setItem('access_token', data.access_token);
+      tokenStorage.setAccessToken(data.access_token);
       localStorage.removeItem('code_verifier');
-      navigate('/');
+      navigate(ROUTES.HOME, { replace: true });
     },
     onError: (error) => {
       console.error('Token exchange failed', error);
@@ -105,7 +108,7 @@ export default function useOAuth() {
   }
 
   function getAccessToken() {
-    return localStorage.getItem('access_token');
+    return tokenStorage.getAccessToken();
   }
 
   return {

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import useOAuth from '../hooks/useOAuth';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../../constants/routeConstants';
 
 export default function AuthCallback() {
   const navigate = useNavigate();
@@ -14,13 +15,13 @@ export default function AuthCallback() {
 
     if (error) {
       console.error('OAuth error:', error);
-      navigate('/login', { replace: true });
+      navigate(ROUTES.LOGIN, { replace: true });
       return;
     }
 
     if (!code) {
       console.error('No authorization code');
-      navigate('/login', { replace: true });
+      navigate(ROUTES.LOGIN, { replace: true });
       return;
     }
 

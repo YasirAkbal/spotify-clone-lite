@@ -10,15 +10,16 @@ export const useAuth = () => {
 
   useEffect(() => {
     const checkSession = async () => {
-      if (!auth.token || auth.token === 'null' || auth.token === 'undefined' || auth.user) {
+      const token = auth.auth?.token;
+      if (!token || token === 'null' || token === 'undefined' || auth.auth?.user) {
         return;
       }
 
       try {
         const res = await axios.get('/api/auth/me', {
-          headers: { Authorization: `Bearer ${auth.token}` },
+          headers: { Authorization: `Bearer ${token}` },
         });
-        dispatch(setAuth({ user: res.data, token: auth.token }));
+        dispatch(setAuth({ user: res.data, token }));
       } catch {
         dispatch(logout());
       }
@@ -55,9 +56,9 @@ export const useAuth = () => {
 
   return {
     // State
-    user: auth.user,
+    user: auth.auth?.user ?? null,
     isAuthenticated: auth.isAuthenticated,
-    token: auth.token,
+    token: auth.auth?.token ?? null,
     // Methods
     login: loginMutation.mutate,
     signup: signupMutation.mutate,
