@@ -2,8 +2,17 @@ import { Tabs } from 'radix-ui';
 import AllTabContent from './components/AllTabContent';
 import MusicTabContent from './components/MusicTabContent';
 import PodcastsTabContent from './components/PodcastsTabContent';
+import useSpotifyProfile from '../user/hooks/useSpotifyProfile';
+import { useEffect } from 'react';
 
 export default function HomePage() {
+  const { data: profile, isSuccess } = useSpotifyProfile();
+  useEffect(() => {
+    if (isSuccess && profile) {
+      console.log('Kullanıcı Profili:', profile);
+    }
+  }, [isSuccess, profile]);
+
   return (
     <div className="p-6">
       <Tabs.Root className="TabsRoot text-white" defaultValue="all">

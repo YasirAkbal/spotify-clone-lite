@@ -43,7 +43,7 @@ const authSlice = createSlice({
       state.expiresAt = Date.now() + action.payload.auth.expires_in * 1000;
     },
     logout: (state) => {
-      state = { ...initialState };
+      state = initialState;
     },
   },
 });

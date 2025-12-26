@@ -1,40 +1,31 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMutation } from '@tanstack/react-query';
 import { setAuth, logout } from '../store/fakeAuthSlice';
-import type { RootState } from '../../../app/store';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import axios from 'axios';
 import { useEffect } from 'react';
 
 export const useAuth = () => {
-  const dispatch = useDispatch();
-  const auth = useSelector((state: RootState) => state.auth);
-
-  // Check session on load if token exists but user is missing
-  const { data: userProfile, isError } = useQuery({
-    queryKey: ['auth', 'me'],
-    queryFn: async () => {
-      const res = await axios.get('/api/auth/me', {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      });
-      return res.data;
-    },
-    enabled: !!auth.token && auth.token !== 'null' && auth.token !== 'undefined' && !auth.user,
-    retry: false,
-  });
+  const dispatch = useAppDispatch();
+  const auth = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    if (userProfile && auth.token) {
-      dispatch(setAuth({ user: userProfile, token: auth.token }));
-    }
-  }, [userProfile, auth.token, dispatch]);
+    const checkSession = async () => {
+      if (!auth.token || auth.token === 'null' || auth.token === 'undefined' || auth.user) {
+        return;
+      }
 
-  useEffect(() => {
-    if (isError) {
-      dispatch(logout());
-    }
-  }, [isError, dispatch]);
+      try {
+        const res = await axios.get('/api/auth/me', {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        });
+        dispatch(setAuth({ user: res.data, token: auth.token }));
+      } catch {
+        dispatch(logout());
+      }
+    };
+
+    checkSession();
+  }, []);
 
   const loginMutation = useMutation({
     mutationFn: async (credentials: { email: string; password?: string }) => {

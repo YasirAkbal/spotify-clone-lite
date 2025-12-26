@@ -1,13 +1,12 @@
 import axios from 'axios';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { setAuth, logout } from '../store/oAuthSlice';
-import type { RootState } from '../../../app/store';
-import { useDispatch } from 'react-redux';
+import { useMutation } from '@tanstack/react-query';
+import { setAuth } from '../store/oAuthSlice';
+import { useAppDispatch } from '../../../app/hooks';
 import { useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 
 export default function useOAuth() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const CLIENT_ID = '0d01c37fe1874c6b85d7624200207c59';
