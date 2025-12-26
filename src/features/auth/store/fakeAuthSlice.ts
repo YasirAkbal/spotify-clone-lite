@@ -12,7 +12,7 @@ const initialState: FakeAuthState = {
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: 'fakeAuth',
   initialState,
   reducers: {
     setAuth: (state, action: PayloadAction<FakeAuthPayload>) => {

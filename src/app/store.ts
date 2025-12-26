@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import fakeAuthReducer from '../features/auth/store/fakeAuthSlice';
-import authReducer from '../features/auth/store/fakeAuthSlice';
+import oAuthReducer from '../features/auth/store/oAuthSlice';
 import currentUserProfileReducer from '../features/user/store/spotifyProfileSlice';
 
 const rootReducer = {
   fakeAuth: fakeAuthReducer,
-  auth: authReducer,
+  auth: oAuthReducer,
   currentUserProfile: currentUserProfileReducer,
 };
 

@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
-  const auth = useAppSelector((state) => state.auth);
+  const auth = useAppSelector((state) => state.fakeAuth);
 
   useEffect(() => {
     const checkSession = async () => {

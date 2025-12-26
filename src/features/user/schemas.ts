@@ -28,6 +28,3 @@ export const CurrentUserProfile = z.object({
   type: z.string(),
   uri: z.string(),
 });
-
-// Type is re-exported from src/types/api/spotify.ts
-// Use: import type { CurrentUserProfileType } from '@/types';

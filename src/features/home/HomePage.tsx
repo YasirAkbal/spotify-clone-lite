@@ -4,6 +4,8 @@ import MusicTabContent from './components/MusicTabContent';
 import PodcastsTabContent from './components/PodcastsTabContent';
 import useSpotifyProfile from '../user/hooks/useSpotifyProfile';
 import { useEffect } from 'react';
+import { playlistQueries } from '../../services/api/playlistsQueries';
+import { useQuery } from '@tanstack/react-query';
 
 export default function HomePage() {
   const { data: profile, isSuccess } = useSpotifyProfile();
@@ -12,6 +14,15 @@ export default function HomePage() {
       console.log('Kullanıcı Profili:', profile);
     }
   }, [isSuccess, profile]);
+
+  const { data: featuredPlaylists, isSuccess: isFeaturedPlaylistsSuccess } = useQuery(
+    playlistQueries.getFeaturedPlaylists()
+  );
+  useEffect(() => {
+    if (isFeaturedPlaylistsSuccess && featuredPlaylists) {
+      console.log('Öne Çıkan Listeler:', featuredPlaylists);
+    }
+  }, [isFeaturedPlaylistsSuccess, featuredPlaylists]);
 
   return (
     <div className="p-6">

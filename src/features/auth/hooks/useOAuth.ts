@@ -12,14 +12,14 @@ export default function useOAuth() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const CLIENT_ID = '0d01c37fe1874c6b85d7624200207c59';
-  const REDIRECT_URL = 'https://127.0.0.1:5173/auth/callback';
-  const ACCESS_TOKEN_URL = 'https://accounts.spotify.com/api/token';
+  // Environment variables (Vite uses import.meta.env)
+  const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+  const REDIRECT_URL = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
+  const ACCESS_TOKEN_URL = import.meta.env.VITE_SPOTIFY_TOKEN_URL;
+  const SCOPE = import.meta.env.VITE_SPOTIFY_SCOPE;
+  const authUrl = new URL(import.meta.env.VITE_SPOTIFY_AUTH_URL);
 
-  const SCOPE = 'user-read-private user-read-email';
-  const authUrl = new URL('https://accounts.spotify.com/authorize');
-
-  const codeChallengeRef = useRef<string>(undefined);
+  const codeChallengeRef = useRef<string | undefined>(undefined);
 
   const exchangeTokenMutation = useMutation({
     mutationFn: async (code: string) => {

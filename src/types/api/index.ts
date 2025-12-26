@@ -4,4 +4,6 @@
  * These types are inferred from Zod schemas and should be used for API data
  */
 
-export * from './spotify';
+export * from './auth';
+export * from './user';
+export * from './playlists';

@@ -7,14 +7,6 @@ export const apiClient = axios.create({
   baseURL: CONSTANTS.SPOTIFY_API_BASE_URL,
 });
 
-apiClient.interceptors.request.use((config) => {
-  const token = tokenStorage.getAccessToken();
-  if (token) {
-    config.headers.Authorization = `${CONSTANTS.BEARER} ${token}`;
-  }
-  return config;
-});
-
 export async function fetchWithSchema<T extends z.ZodTypeAny>(
   schema: T,
   config: AxiosRequestConfig
@@ -22,3 +14,11 @@ export async function fetchWithSchema<T extends z.ZodTypeAny>(
   const response = await apiClient(config);
   return schema.parse(response.data);
 }
+
+apiClient.interceptors.request.use((config) => {
+  const token = tokenStorage.getAccessToken();
+  if (token) {
+    config.headers.Authorization = `${CONSTANTS.BEARER} ${token}`;
+  }
+  return config;
+});

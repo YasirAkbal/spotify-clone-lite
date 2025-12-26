@@ -4,7 +4,7 @@
  */
 
 import type { z } from 'zod';
-import type { SpotifyTokenResponse } from '../api/spotify';
+import type { SpotifyTokenResponse } from '../api/auth';
 import { FakeAuthUserSchema } from '../../features/auth/schemas';
 
 // OAuth Types (derived from Zod schema)
