@@ -1,5 +1,4 @@
-import { CreatePlaylistIcon } from '../../assets/icons/CreatePlaylistIcon';
-import { LibraryIcon } from '../../assets/icons/LibraryIcon';
+import { CreatePlaylistIcon, LibraryIcon } from '../../assets/icons';
 
 export default function LeftSidebar() {
   return (

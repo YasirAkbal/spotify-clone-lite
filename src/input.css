@@ -1,11 +1,9 @@
 @import 'tailwindcss';
 
-/* Kaynak dosyaları - src klasöründen başlayarak */
 @source "../index.html";
 @source "./**/*.{ts,tsx,js,jsx}";
 
 @theme {
-  /* Spotify renkleri */
   --color-spotify-green: #1db954;
   --color-spotify-black: #191414;
   --color-spotify-white: #ffffff;

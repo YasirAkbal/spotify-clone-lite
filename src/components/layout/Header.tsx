@@ -1,10 +1,12 @@
-import { BrowseIcon } from '../../assets/icons/BrowseIcon';
-import { DownloadOurApp } from '../../assets/icons/DownloadOurAppIcon.tsx';
-import { FriendActivityIcon } from '../../assets/icons/FriendActivityIcon.tsx';
-import { HomePageIcon } from '../../assets/icons/HomePageIcon';
-import { NotificationsIcon } from '../../assets/icons/NotificationsIcon.tsx';
-import { SearchIcon } from '../../assets/icons/SearchIcon';
-import { SpotifyLogo } from '../../assets/icons/SpotifyLogo';
+import {
+  BrowseIcon,
+  DownloadOurApp,
+  FriendActivityIcon,
+  HomePageIcon,
+  NotificationsIcon,
+  SearchIcon,
+  SpotifyLogo,
+} from '../../assets/icons';
 import Button from '../ui/Button.tsx';
 
 export default function Header() {
