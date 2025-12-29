@@ -2,7 +2,7 @@ import { SpotifyLogo } from '../../../assets/icons';
 import { useForm } from 'react-hook-form';
 import FormField from '../../../components/ui/FormField';
 import TextInput from '../../../components/ui/TextInput';
-import Button from '../../../components/ui/Button';
+import { Button } from '../../../components/ui/Button';
 import { useAuth } from '../hooks/useFakeAuth';
 import { Navigate, useNavigate } from 'react-router-dom';
 import useOAuth from '../hooks/useOAuth';

@@ -1,6 +1,6 @@
-import type { IconProps } from './types';
+import type { IconProps } from '../../types/components/icons.ts';
 
-export const DownloadOurApp = ({ size = 24, className = '' }: IconProps) => (
+export const DownloadOurAppIcon = ({ size = 24, className = '' }: IconProps) => (
   <svg
     role="img"
     xmlns="http://www.w3.org/2000/svg"

@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:is(.dark *));
+
 @source "../index.html";
 @source "./**/*.{ts,tsx,js,jsx}";
 
@@ -9,6 +11,179 @@
   --color-spotify-white: #ffffff;
   --color-spotify-gray: #535353;
   --color-spotify-lightgray: #b3b3b3;
+  --color-background-base: #121212;
+  --color-background-highlight: #1f1f1f;
+  --color-background-press: #000;
+  --color-background-elevated-base: #1f1f1f;
+  --color-background-elevated-highlight: #2a2a2a;
+  --color-background-elevated-press: #191919;
+  --color-text-base: #fff;
+  --color-text-subdued: #b3b3b3;
+  --color-text-bright-accent: #1ed760;
+  --color-text-negative: #f3727f;
+  --color-text-warning: #ffa42b;
+  --color-text-positive: #1ed760;
+  --color-text-announcement: #4cb3ff;
+
+  /* Encore background color scale (for bg-encore-background-*) */
+  --color-encore-background-base: #121212;
+  --color-encore-background-highlight: #1f1f1f;
+  --color-encore-background-press: #000000;
+  --color-encore-background-elevated-base: #1f1f1f;
+  --color-encore-background-elevated-highlight: #2a2a2a;
+  --color-encore-background-elevated-press: #191919;
+
+  /* Encore text color scale (for text-encore-text-*) */
+  --color-encore-text-base: #ffffff;
+  --color-encore-text-subdued: #b3b3b3;
+  --color-encore-text-accent: #1ed760;
+  --color-encore-text-negative: #f3727f;
+  --color-encore-text-warning: #ffa42b;
+  --color-encore-text-positive: #1ed760;
+  --color-encore-text-announcement: #4cb3ff;
+
+  /* Tailwind v4 font-size tokenları -> text-* class'ları */
+  --text-smaller-2: 0.6875rem;
+  --text-smaller-2--line-height: 1.2;
+  --text-smaller: 0.8125rem;
+  --text-smaller--line-height: 1.2;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5;
+  --text-large: 1.125rem;
+  --text-large--line-height: 1.5;
+  --text-larger: 1.25rem;
+  --text-larger--line-height: 1.3;
+  --text-larger-2: 1.5rem;
+  --text-larger-2--line-height: 1.3;
+  --text-larger-3: 2rem;
+  --text-larger-3--line-height: 1.2;
+  --text-larger-4: 2.5rem;
+  --text-larger-4--line-height: 1.1;
+  --text-larger-5: 3rem;
+  --text-larger-5--line-height: 1.1;
+
+  /* Spacing scale (for p-tighter-5, gap-looser-3, vb.) */
+  --spacing-tighter-5: 2px;
+  --spacing-tighter-4: 4px;
+  --spacing-tighter-3: 6px;
+  --spacing-tighter-2: 8px;
+  --spacing-tighter: 12px;
+  --spacing-looser: 20px;
+  --spacing-looser-2: 24px;
+  --spacing-looser-3: 32px;
+  --spacing-looser-4: 40px;
+  --spacing-looser-5: 48px;
+  --spacing-looser-6: 64px;
+
+  /* Border radius scale (for rounded-smaller, rounded-larger-3, vb.) */
+  --radius-smaller: 2px;
+  --radius-base: 4px;
+  --radius-larger: 6px;
+  --radius-larger-2: 8px;
+  --radius-larger-3: 16px;
+  --radius-rounded: 9999px;
+
+  /* Control sizes (h-[var(--size-control-*)], w-[var(--size-control-*)]) */
+  --size-control-smaller: 32px;
+  --size-control-base: 48px;
+  --size-control-larger: 56px;
+
+  /* Transition durations (duration-shortest-1, vb.) */
+  --duration-shortest-1: 50ms;
+  --duration-shortest-2: 100ms;
+  --duration-shortest-3: 150ms;
+  --duration-shortest-4: 200ms;
+  --duration-short-1: 250ms;
+  --duration-short-2: 300ms;
+
+  /* Font family tokenları (font-body, font-fontStackTitle) */
+  --font-body:
+    SpotifyMixUI, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek,
+    CircularSp-Deva, Helvetica Neue, helvetica, arial, Hiragino Sans, Hiragino Kaku Gothic ProN,
+    Meiryo, MS Gothic, sans-serif;
+  --font-fontStackTitle:
+    SpotifyMixUITitle, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek,
+    CircularSp-Deva, Helvetica Neue, helvetica, arial, Hiragino Sans, Hiragino Kaku Gothic ProN,
+    Meiryo, MS Gothic, sans-serif;
+  --font-sans: var(--font-body);
+
+  /* Opacity ve shadow tokenları */
+  --opacity-disabled: 0.3;
+  --shadow-encore-overlay: 0 4px 12px 0 rgba(0, 0, 0, 0.3);
+  --shadow-encore-focus: 0 3px 0 0 rgba(30, 215, 96, 1);
+}
+
+@layer base {
+  html,
+  body {
+    font-family:
+      SpotifyMixUI,
+      CircularSp-Arab,
+      CircularSp-Hebr,
+      CircularSp-Cyrl,
+      CircularSp-Grek,
+      CircularSp-Deva,
+      Helvetica Neue,
+      helvetica,
+      arial,
+      sans-serif;
+    color: rgb(255 255 255);
+    font-size: 1rem;
+    line-height: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: hsla(0, 0%, 100%, 0.1);
+    background-color: var(--color-background-base);
+    box-sizing: border-box;
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family:
+      SpotifyMixUITitle,
+      CircularSp-Arab,
+      CircularSp-Hebr,
+      CircularSp-Cyrl,
+      CircularSp-Grek,
+      CircularSp-Deva,
+      Helvetica Neue,
+      helvetica,
+      arial,
+      sans-serif;
+  }
+
+  @font-face {
+    font-family: 'SpotifyMixUI';
+    src: url('./app/fonts/spotify_mix_ui_regular.otf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'SpotifyMixUI';
+    src: url('./app/fonts/spotify_mix_ui_bold.otf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'SpotifyMixUITitle';
+    src: url('./app/fonts/spotify_mix_ui_title_bold.otf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'SpotifyMixUITitle';
+    src: url('./app/fonts/spotify_mix_ui_title_extrabold.otf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+  }
 }
 
 @layer components {
@@ -21,5 +196,121 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
 }

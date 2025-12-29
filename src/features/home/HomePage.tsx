@@ -2,13 +2,14 @@ import { Tabs } from 'radix-ui';
 import AllTabContent from './components/AllTabContent';
 import MusicTabContent from './components/MusicTabContent';
 import PodcastsTabContent from './components/PodcastsTabContent';
-import useSpotifyProfile from '../user/hooks/useSpotifyProfile';
+import HomeMobileHeader from './components/HomeMobileHeader';
+/*import useSpotifyProfile from '../user/hooks/useSpotifyProfile';
 import { useEffect } from 'react';
 import { playlistQueries } from '../../services/api/playlistsQueries';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';*/
 
 export default function HomePage() {
-  const { data: profile, isSuccess } = useSpotifyProfile();
+  /*const { data: profile, isSuccess } = useSpotifyProfile();
   useEffect(() => {
     if (isSuccess && profile) {
       console.log('Kullanıcı Profili:', profile);
@@ -22,32 +23,39 @@ export default function HomePage() {
     if (isFeaturedPlaylistsSuccess && featuredPlaylists) {
       console.log('Öne Çıkan Listeler:', featuredPlaylists);
     }
-  }, [isFeaturedPlaylistsSuccess, featuredPlaylists]);
+  }, [isFeaturedPlaylistsSuccess, featuredPlaylists]);*/
 
   return (
-    <div className="p-6">
-      <Tabs.Root className="TabsRoot text-white" defaultValue="all">
-        <Tabs.List className="TabsList mb-6" aria-label="Select media type">
-          <Tabs.Trigger className="TabsTrigger" value="all">
-            Tümü
-          </Tabs.Trigger>
-          <Tabs.Trigger className="TabsTrigger" value="music">
-            Müzik
-          </Tabs.Trigger>
-          <Tabs.Trigger className="TabsTrigger" value="podcasts">
-            Podcast'ler
-          </Tabs.Trigger>
-        </Tabs.List>
-        <Tabs.Content className="TabsContent" value="all">
-          <AllTabContent />
-        </Tabs.Content>
-        <Tabs.Content className="TabsContent" value="music">
-          <MusicTabContent />
-        </Tabs.Content>
-        <Tabs.Content className="TabsContent" value="podcasts">
-          <PodcastsTabContent />
-        </Tabs.Content>
-      </Tabs.Root>
+    <div>
+      <div className="hidden">
+        <Tabs.Root className="TabsRoot text-white" defaultValue="all">
+          <Tabs.List className="TabsList mb-6" aria-label="Select media type">
+            <Tabs.Trigger className="TabsTrigger" value="all">
+              Tümü
+            </Tabs.Trigger>
+            <Tabs.Trigger className="TabsTrigger" value="music">
+              Müzik
+            </Tabs.Trigger>
+            <Tabs.Trigger className="TabsTrigger" value="podcasts">
+              Podcast'ler
+            </Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Content className="TabsContent" value="all">
+            <AllTabContent />
+          </Tabs.Content>
+          <Tabs.Content className="TabsContent" value="music">
+            <MusicTabContent />
+          </Tabs.Content>
+          <Tabs.Content className="TabsContent" value="podcasts">
+            <PodcastsTabContent />
+          </Tabs.Content>
+        </Tabs.Root>
+      </div>
+
+      <div className="p-4">
+        <HomeMobileHeader />
+        <AllTabContent />
+      </div>
     </div>
   );
 }

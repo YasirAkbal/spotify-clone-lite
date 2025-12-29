@@ -1,4 +1,4 @@
-import type { IconProps } from './types';
+import type { IconProps } from '../../types/components/icons.ts';
 
 export const BrowseIcon = ({ size = 24, className = '' }: IconProps) => (
   <svg

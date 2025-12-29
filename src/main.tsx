@@ -23,16 +23,18 @@ async function enableMocking() {
 
 enableMocking().then(() => {
   createRoot(document.getElementById('root')!).render(
-    <QueryErrorResetBoundary>
-      {({ reset }) => (
-        <ErrorBoundary onReset={reset} FallbackComponent={Fallback}>
-          <Provider store={store}>
-            <QueryClientProvider client={queryClient}>
-              <App />
-            </QueryClientProvider>
-          </Provider>
-        </ErrorBoundary>
-      )}
-    </QueryErrorResetBoundary>
+    <StrictMode>
+      <QueryErrorResetBoundary>
+        {({ reset }) => (
+          <ErrorBoundary onReset={reset} FallbackComponent={Fallback}>
+            <Provider store={store}>
+              <QueryClientProvider client={queryClient}>
+                <App />
+              </QueryClientProvider>
+            </Provider>
+          </ErrorBoundary>
+        )}
+      </QueryErrorResetBoundary>
+    </StrictMode>
   );
 });

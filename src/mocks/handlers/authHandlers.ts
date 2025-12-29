@@ -19,8 +19,6 @@ const users: User[] = [
   },
 ];
 
-let currentUser: User | null = null;
-
 // Mock JWT Helper Functions
 const SECRET_KEY = 'spotify-mock-secret-key';
 
@@ -72,7 +70,6 @@ export const authHandlers = [
     };
 
     users.push(newUser);
-    currentUser = newUser;
 
     const token = createToken(newUser);
 
@@ -101,7 +98,6 @@ export const authHandlers = [
       return HttpResponse.json({ message: 'Invalid credentials' }, { status: 401 });
     }
 
-    currentUser = user;
     const token = createToken(user);
 
     return HttpResponse.json({
@@ -138,7 +134,6 @@ export const authHandlers = [
   }),
 
   http.post('/api/auth/logout', () => {
-    currentUser = null;
     return HttpResponse.json({ message: 'Logged out successfully' });
   }),
 ];

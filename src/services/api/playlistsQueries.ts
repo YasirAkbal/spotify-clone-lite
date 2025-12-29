@@ -14,22 +14,27 @@ export const playlistQueries = {
     }),
   getPlaylist: (playlistId: number) =>
     queryOptions({
-      queryKey: [...playlistQueries.all().queryKey, playlistId],
+      queryKey: [...playlistQueries.all().queryKey, playlistId] as const,
       queryFn: () => getPlaylist(playlistId),
     }),
   getPlaylistItems: (playlistId: number, offset = 0, limit = 20) =>
     queryOptions({
-      queryKey: [...playlistQueries.all().queryKey, playlistId, 'items', { offset, limit }],
+      queryKey: [
+        ...playlistQueries.all().queryKey,
+        playlistId,
+        'items',
+        { offset, limit },
+      ] as const,
       queryFn: () => getPlaylistItems(playlistId, offset, limit),
     }),
   getCurrentUsersPlaylist: (offset = 0, limit = 20) =>
     queryOptions({
-      queryKey: [...playlistQueries.all().queryKey, 'me', { offset, limit }],
+      queryKey: [...playlistQueries.all().queryKey, 'me', { offset, limit }] as const,
       queryFn: () => getCurrentUsersPlaylist(offset, limit),
     }),
   getFeaturedPlaylists: (offset = 0, limit = 20) =>
     queryOptions({
-      queryKey: [...playlistQueries.all().queryKey, 'featured', { offset, limit }],
+      queryKey: [...playlistQueries.all().queryKey, 'featured', { offset, limit }] as const,
       queryFn: () => getFeaturedPlaylists(offset, limit),
     }),
 };

@@ -3,7 +3,11 @@
   "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
   "compilerOptions": {
     // ...existing code...
-    "types": ["node"]
+    "types": ["node"],
     // ...existing code...
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }

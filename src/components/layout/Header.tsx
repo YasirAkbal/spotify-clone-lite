@@ -1,17 +1,17 @@
 import {
   BrowseIcon,
-  DownloadOurApp,
+  DownloadOurAppIcon,
   FriendActivityIcon,
   HomePageIcon,
   NotificationsIcon,
   SearchIcon,
   SpotifyLogo,
 } from '../../assets/icons';
-import Button from '../ui/Button.tsx';
+import { Button } from '../ui/Button.tsx';
 
 export default function Header() {
   return (
-    <header className="w-full flex bg-spotify-black text-white px-8 py-2 items-center justify-between bg-red-500">
+    <header className="hidden md:flex w-full text-white px-8 py-2 items-center justify-between">
       <SpotifyLogo size={30} />
       <div className="flex items-center">
         <HomePageIcon size={30} />
@@ -25,7 +25,7 @@ export default function Header() {
         <Button>Premium'u keşfet</Button>
         <Button>
           <div className="flex items-center gap-2">
-            <DownloadOurApp size={16} />
+            <DownloadOurAppIcon size={16} />
             <span>Uygulamayı Yükle</span>
           </div>
         </Button>
