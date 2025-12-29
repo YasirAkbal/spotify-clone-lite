@@ -9,5 +9,6 @@ export { NotificationsIcon } from './NotificationsIcon';
 export { SearchIcon } from './SearchIcon';
 export { SpotifyLogo } from './SpotifyLogo';
 export { SettingsIcon } from './SettingsIcon';
+export { UpRightArrowIcon } from './UpRightArrowIcon';
 
 export type { IconProps } from '../../types';
