@@ -10,7 +10,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
     return (
       <input
         ref={ref}
-        className={`w-[300px] px-3 py-3 bg-[#121212] border ${
+        className={`px-3 py-3 bg-[#121212] border ${
           error ? 'border-[#f15e6c] focus:border-[#f15e6c]' : 'border-[#727272] focus:border-white'
         } rounded text-white placeholder:text-[#a7a7a7] outline-none transition-all ${className}`}
         {...props}

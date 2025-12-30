@@ -6,12 +6,20 @@ interface FormFieldProps {
   description?: string;
   error?: string;
   children: React.ReactNode;
+  className?: string;
 }
 
-export default function FormField({ label, id, description, error, children }: FormFieldProps) {
+export default function FormField({
+  label,
+  id,
+  description,
+  error,
+  children,
+  className,
+}: FormFieldProps) {
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="text-sm font-bold text-white">
+    <div className={`flex flex-col gap-2 ${className || ''}`}>
+      <label htmlFor={id} className="text-smaller font-bold text-white">
         {label}
       </label>
       {description && <p className="text-xs text-[#a7a7a7] mb-1">{description}</p>}

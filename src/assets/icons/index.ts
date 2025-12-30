@@ -19,5 +19,8 @@ export { LikeIcon } from './LikeIcon';
 export { ShareIcon } from './ShareIcon';
 export { MoreIcon } from './MoreIcon';
 export { PlayIcon } from './PlayIcon';
+export { GoogleIcon } from './GoogleIcon';
+export { FacebookColorIcon } from './FacebookColorIcon';
+export { AppleIcon } from './AppleIcon';
 
 export type { IconProps } from '../../types';
