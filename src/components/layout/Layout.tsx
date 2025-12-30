@@ -8,11 +8,11 @@ import BottomNavigation from './BottomNavigation';
 import { Footer } from './Footer';
 import { ROUTES } from '../../constants/routeConstants';
 
-const MOBILE_FOOTER_ROUTES = [ROUTES.HOME] as [string];
+const MOBILE_FOOTER_ROUTES = [ROUTES.HOME, ROUTES.PLAYLIST_DETAIL] as const;
 
 export default function Layout() {
   const location = useLocation();
-  const footerVisibilityClass = MOBILE_FOOTER_ROUTES.includes(location.pathname)
+  const footerVisibilityClass = MOBILE_FOOTER_ROUTES.includes(location.pathname as any)
     ? 'block'
     : 'hidden md:block';
 
@@ -22,7 +22,7 @@ export default function Layout() {
         <Header />
         <div className="flex flex-1">
           <LeftSidebar />
-          <main className="flex-1">
+          <main className="flex-1 min-w-0">
             <Outlet />
             <BottomNavigation />
           </main>

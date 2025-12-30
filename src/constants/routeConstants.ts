@@ -5,4 +5,5 @@ export const ROUTES = {
   AUTH_CALLBACK: '/auth/callback',
   SEARCH: '/search',
   DOWNLOAD: '/download',
+  PLAYLIST_DETAIL: '/playlist',
 } as const;

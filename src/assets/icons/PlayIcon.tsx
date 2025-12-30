@@ -1,0 +1,19 @@
+import type { IconProps } from '../../types/components/icons.ts';
+
+export const PlayIcon = ({ size = 24, className = '' }: IconProps) => (
+  <svg
+    role="img"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label="Play"
+    height={size}
+    width={size}
+    className={className}
+  >
+    <title>Play</title>
+    <path
+      fill="currentColor"
+      d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606"
+    />
+  </svg>
+);

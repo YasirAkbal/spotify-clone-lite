@@ -15,5 +15,9 @@ export { InstagramIcon } from './InstagramIcon';
 export { TwitterIcon } from './TwitterIcon';
 export { FacebookIcon } from './FacebookIcon';
 export { GlobeIcon } from './GlobeIcon';
+export { LikeIcon } from './LikeIcon';
+export { ShareIcon } from './ShareIcon';
+export { MoreIcon } from './MoreIcon';
+export { PlayIcon } from './PlayIcon';
 
 export type { IconProps } from '../../types';
