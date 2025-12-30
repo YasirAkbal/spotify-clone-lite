@@ -1,11 +1,5 @@
 import ListCard from './ListCard';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from './Carousel';
+import { Carousel, CarouselContent, CarouselItem } from './Carousel';
 
 export default function List({ header }: { header: string }) {
   return (

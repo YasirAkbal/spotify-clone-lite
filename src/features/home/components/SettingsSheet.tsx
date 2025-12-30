@@ -65,7 +65,7 @@ function CloseButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="p-3 text-white text-2xl absolute top-2 right-4"
+      className="p-3 text-white text-2xl absolute top-4 right-2"
       aria-label="Ayarları Kapat"
     >
       <CloseIcon size={24} />

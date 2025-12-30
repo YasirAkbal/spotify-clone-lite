@@ -52,10 +52,12 @@ export default function HomePage() {
         </Tabs.Root>
       </div>
 
-      <div className="p-4">
+      <div>
         <HomeMobileHeader />
         <AllTabContent />
       </div>
+
+      <section></section>
     </div>
   );
 }

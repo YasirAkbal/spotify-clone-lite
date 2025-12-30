@@ -36,4 +36,4 @@ export const settingsMenuSections: SettingsMenuSection[] = [
       { id: 'terms', label: 'Hükümler', to: '/terms' },
     ],
   },
-];
+] as const;

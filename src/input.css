@@ -42,6 +42,13 @@
   --color-encore-text-positive: #1ed760;
   --color-encore-text-announcement: #4cb3ff;
 
+  /* Footer specific colors */
+  --color-footer-text-muted: #a7a7a7;
+  --color-footer-border: #727272;
+  --color-footer-background: #121212;
+  --color-footer-social-bg: #292929;
+  --color-footer-divider: #292929;
+
   /* Tailwind v4 font-size tokenları -> text-* class'ları */
   --text-smaller-2: 0.6875rem;
   --text-smaller-2--line-height: 1.2;

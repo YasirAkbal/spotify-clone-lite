@@ -10,5 +10,10 @@ export { SearchIcon } from './SearchIcon';
 export { SpotifyLogo } from './SpotifyLogo';
 export { SettingsIcon } from './SettingsIcon';
 export { UpRightArrowIcon } from './UpRightArrowIcon';
+export { BackIcon } from './BackIcon';
+export { InstagramIcon } from './InstagramIcon';
+export { TwitterIcon } from './TwitterIcon';
+export { FacebookIcon } from './FacebookIcon';
+export { GlobeIcon } from './GlobeIcon';
 
 export type { IconProps } from '../../types';
