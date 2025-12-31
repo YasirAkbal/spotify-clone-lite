@@ -20,12 +20,16 @@ const buttonVariants = cva(
           'bg-spotify-green text-black rounded-full font-bold hover:scale-[1.04] transition-transform active:scale-[1.0] active:opacity-70',
         social:
           'bg-transparent border border-[#727272] text-white rounded-full font-bold hover:border-white hover:scale-[1.04] transition-transform active:scale-[1.0] active:opacity-70 relative [&_svg]:size-6',
+        search: 'bg-white text-black [&_svg]:size-6 justify-start rounded-sm',
+        popover:
+          'bg-white text-black border border-white rounded-full font-bold hover:scale-105 transition-transform',
       },
       size: {
         default: 'h-10 px-4 py-2',
         sm: 'h-8 rounded-md px-3 text-xs',
         lg: 'h-12 rounded-full px-8 text-base',
         icon: 'h-10 w-10',
+        search: 'px-4 py-3',
       },
     },
     defaultVariants: {

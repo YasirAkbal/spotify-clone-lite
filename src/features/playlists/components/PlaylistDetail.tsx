@@ -1,9 +1,10 @@
-import { BackIcon, LikeIcon, SpotifyLogo, ShareIcon, MoreIcon } from '@/assets/icons';
+import { LikeIcon, SpotifyLogo, ShareIcon, MoreIcon } from '@/assets/icons';
 import { Button } from '@/components/ui/Button';
 import { PlayButton } from '@/components/ui/PlayButton';
 import playlistImage from '@/assets/images/unnamed.png';
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import BackButton from '@/components/ui/BackButton';
 
 function PlayListDetailListItem() {
   return (
@@ -37,16 +38,9 @@ function PlayListDetailListItem() {
 }
 
 export default function PlaylistDetail() {
-  const navigate = useNavigate();
-
   return (
     <section className="flex flex-col gap-y-1">
-      <Button
-        className="bg-inherit self-start [&_svg]:size-6 -m-l-4 p-0"
-        onClick={() => navigate(-1)}
-      >
-        <BackIcon className="text-white" />
-      </Button>
+      <BackButton />
 
       <img src={playlistImage} alt="Playlist Cover" className="self-center w-2/5 mt-8" />
 
