@@ -19,6 +19,7 @@ The project is currently under development. While Authentication and User Profil
 - [ ] Complete responsive design and unfinished styling
 - [ ] Playlist management (List, add/remove songs, create new playlist)
 - [ ] Write tests
+- [ ] Multi Language Support
 
 ## 🛠 Tech Stack & Architecture
 
