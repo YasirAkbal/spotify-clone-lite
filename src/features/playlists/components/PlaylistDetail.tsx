@@ -9,7 +9,6 @@ function PlayListDetailListItem() {
   return (
     <Button
       asChild
-      size="xl"
       className="flex justify-start gap-x-3 w-full bg-inherit px-0"
       onClick={() => alert('Parent Button')}
     >
@@ -82,7 +81,7 @@ export default function PlaylistDetail() {
         <PlayButton className="ml-auto" onClick={() => console.log('Playing playlist...')} />
       </div>
 
-      <div className="flex flex-col gap-y-1 mt-4">
+      <div className="flex flex-col gap-y-4 mt-4">
         {Array.from({ length: 15 }).map((_, index) => (
           <PlayListDetailListItem key={index} />
         ))}
