@@ -10,6 +10,7 @@ The project is currently under development. While Authentication and User Profil
 
 - ✅ Authentication
 - ✅ User Profile API integration
+- ✅ Some Completed Components and Mobile Layout Stylings
 
 ## 🚀 Future Plans (To-Do)
 
@@ -25,6 +26,9 @@ This project utilizes the following technologies and patterns:
 
 - **Core:** React, TypeScript, Vite
 - **State Management:** Redux Toolkit, TanStack Query
+- **Routing:** React Router
+- **UI Library:** Radix UI&Shadcn/UI
+- **Validation Library:** Zod
 - **Styling:** Tailwind CSS
 - **Mocking:** MSW (Mock Service Worker)
 - **Architecture:** Feature-based folder structure
@@ -33,10 +37,10 @@ This project utilizes the following technologies and patterns:
 
 The project is organized by features for scalability and maintainability:
 
-- `src/features`: Contains components, hooks, and store slices specific to each feature (auth, player, playlists, etc.).
-- `src/components`: Shared UI components (Button, Layout, etc.).
-- `src/services`: API definitions and requests.
-- `src/store`: Global state management configuration.
+- `/features`: Contains components, hooks, and store slices specific to each feature (auth, player, playlists, etc.).
+- `/components`: Shared UI components (Button, Layout, etc.).
+- `/services`: API definitions and requests.
+- `/store`: Global state management configuration.
 
 ---
 
