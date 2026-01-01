@@ -1,11 +1,10 @@
 import * as z from 'zod';
+import { ExternalUrlsSchema, ImageWithDimensionsSchema } from '@/lib/schemas';
 
-const CurrentUserImages = z.object({
-  url: z.string(),
-  height: z.number(),
-  width: z.number(),
-});
-
+/**
+ * Current User Profile Schema
+ * Response from GET /me endpoint
+ */
 export const CurrentUserProfile = z.object({
   country: z.string(),
   display_name: z.string(),
@@ -14,16 +13,14 @@ export const CurrentUserProfile = z.object({
     filter_enabled: z.boolean(),
     filter_locked: z.boolean(),
   }),
-  external_urls: z.object({
-    spotify: z.string(),
-  }),
+  external_urls: ExternalUrlsSchema,
   followers: z.object({
     href: z.string().nullable(),
     total: z.number(),
   }),
   href: z.string(),
   id: z.string(),
-  images: z.array(CurrentUserImages),
+  images: z.array(ImageWithDimensionsSchema),
   product: z.string(),
   type: z.string(),
   uri: z.string(),

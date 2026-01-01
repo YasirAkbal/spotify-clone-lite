@@ -1,9 +1,5 @@
+import axios, { type AxiosRequestConfig } from 'axios';
 import { z } from 'zod';
-
-interface MockApiConfig {
-  url: string;
-  params?: Record<string, unknown>;
-}
 
 /**
  * Mock API için fetch helper
@@ -11,16 +7,15 @@ interface MockApiConfig {
  */
 export async function fetchMockApi<T extends z.ZodTypeAny>(
   schema: T,
-  config: MockApiConfig
+  config: AxiosRequestConfig
 ): Promise<z.infer<T>> {
-  const url = new URL(config.url, window.location.origin);
-  if (config.params) {
-    Object.entries(config.params).forEach(([key, value]) => {
-      url.searchParams.set(key, String(value));
-    });
+  try {
+    const response = await axios(config);
+    return schema.parse(response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    }
+    throw error;
   }
-
-  const response = await fetch(url);
-  const data = await response.json();
-  return schema.parse(data);
 }

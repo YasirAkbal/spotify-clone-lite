@@ -8,6 +8,7 @@ import { ROUTES } from './constants/routeConstants';
 import Search from './features/search/components/Search';
 import Download from './features/download/components/Download';
 import PlaylistDetail from './features/playlists/components/PlaylistDetail';
+import Register from './features/register/components/Register';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path={ROUTES.SEARCH} element={<Search />} />
           <Route path={ROUTES.DOWNLOAD} element={<Download />} />
           <Route path={ROUTES.PLAYLIST_DETAIL} element={<PlaylistDetail />} />
+          <Route path={ROUTES.REGISTER} element={<Register />} />
 
           <Route element={<AuthRequired />}>{/* Protected routes go here */}</Route>
         </Route>

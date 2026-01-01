@@ -1,9 +1,12 @@
 /**
- * Auth Schemas
- * Re-exports from organized schema modules
+ * Auth Schemas - Central export point
+ *
+ * Structure:
+ * - validation.ts: Reusable field validators (email, password, username, etc.)
+ * - oauth.ts: Spotify OAuth schemas
+ * - mockAuth.ts: Mock auth schemas for development/testing
  *
  * Types are exported from @/types/api/auth
- * @see ./schemas/index.ts for the full list of schema exports
  */
 
 // Validation schemas (reusable across features)
@@ -13,10 +16,10 @@ export {
   usernameSchema,
   nameSchema,
   birthDateSchema,
-} from './schemas/validation';
+} from './validation';
 
 // OAuth schemas (real Spotify API)
-export { SpotifyTokenResponseSchema } from './schemas/oauth';
+export { SpotifyTokenResponseSchema } from './oauth';
 
 // Mock auth schemas (development/testing with MSW)
 export {
@@ -25,4 +28,4 @@ export {
   MockRegisterFormSchema,
   MockLoginFormSchema,
   MockAuthResponseSchema,
-} from './schemas/mockAuth';
+} from './mockAuth';

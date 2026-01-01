@@ -1,4 +1,4 @@
-import type { Genre } from '../schemas';
+import type { Genre } from '@/types';
 
 interface CategoryCardProps {
   genre: Genre;

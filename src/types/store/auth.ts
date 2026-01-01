@@ -3,11 +3,9 @@
  * Types for OAuth and authentication state
  */
 
-import type { z } from 'zod';
-import type { SpotifyTokenResponse } from '../api/auth';
-import { FakeAuthUserSchema } from '../../features/auth/schemas';
+import type { SpotifyTokenResponse, MockUser, MockAuthResponse } from '../api/auth';
 
-// OAuth Types (derived from Zod schema)
+// OAuth Types
 export type OAuthPayload = SpotifyTokenResponse;
 
 export interface OAuthState {
@@ -15,13 +13,9 @@ export interface OAuthState {
   expiresAt: number | null;
 }
 
-// Fake Auth Types
-export type FakeAuthUser = z.infer<typeof FakeAuthUserSchema>;
-
-export interface FakeAuthPayload {
-  user: FakeAuthUser;
-  token: string;
-}
+// Mock Auth Types (for fake auth with MSW)
+export type FakeAuthUser = MockUser;
+export type FakeAuthPayload = MockAuthResponse;
 
 export interface FakeAuthState {
   auth: FakeAuthPayload | null;

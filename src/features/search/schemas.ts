@@ -14,6 +14,3 @@ export const GenresResponseSchema = z.object({
   genres: z.array(GenreSchema),
   total: z.number(),
 });
-
-export type Genre = z.infer<typeof GenreSchema>;
-export type GenresResponse = z.infer<typeof GenresResponseSchema>;

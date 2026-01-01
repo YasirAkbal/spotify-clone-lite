@@ -1,33 +1,54 @@
-// src/mocks/handlers/auth.handlers.ts
 import { http, HttpResponse } from 'msw';
 
-interface User {
+interface MockUser {
   id: string;
   email: string;
-  password: string;
-  name: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  birthDate?: string;
   avatar: string;
 }
 
-const users: User[] = [
+interface UserWithPassword extends MockUser {
+  password: string;
+}
+
+interface RegisterRequest {
+  email: string;
+  password: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+}
+
+interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+const users: UserWithPassword[] = [
   {
     id: '1',
     email: 'test@spotify.com',
     password: 'test123',
-    name: 'Test User',
+    username: 'testuser',
+    firstName: 'Test',
+    lastName: 'User',
+    birthDate: '1990-01-01',
     avatar: 'https://i.pravatar.cc/300?img=1',
   },
 ];
 
-// Mock JWT Helper Functions
 const SECRET_KEY = 'spotify-mock-secret-key';
 
-const createToken = (user: User) => {
+const createToken = (user: UserWithPassword) => {
   const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
   const payload = btoa(
     JSON.stringify({
       sub: user.id,
-      exp: Date.now() + 1000 * 60 * 60 * 24, // 24 hours
+      exp: Date.now() + 1000 * 60 * 60 * 24,
     })
   );
   const signature = btoa(`${header}.${payload}.${SECRET_KEY}`);
@@ -52,20 +73,27 @@ const verifyToken = (token: string) => {
 };
 
 export const authHandlers = [
-  // Register
   http.post('/api/auth/register', async ({ request }) => {
-    const body = (await request.json()) as { email: string; password: string; name: string };
+    const body = (await request.json()) as RegisterRequest;
 
     const existingUser = users.find((u) => u.email === body.email);
     if (existingUser) {
       return HttpResponse.json({ message: 'Email already exists' }, { status: 400 });
     }
 
-    const newUser = {
+    const existingUsername = users.find((u) => u.username === body.username);
+    if (existingUsername) {
+      return HttpResponse.json({ message: 'Username already exists' }, { status: 400 });
+    }
+
+    const newUser: UserWithPassword = {
       id: String(users.length + 1),
       email: body.email,
       password: body.password,
-      name: body.name,
+      username: body.username,
+      firstName: body.firstName,
+      lastName: body.lastName,
+      birthDate: body.birthDate,
       avatar: `https://i.pravatar.cc/300?img=${users.length + 1}`,
     };
 
@@ -77,7 +105,10 @@ export const authHandlers = [
       user: {
         id: newUser.id,
         email: newUser.email,
-        name: newUser.name,
+        username: newUser.username,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        birthDate: newUser.birthDate,
         avatar: newUser.avatar,
       },
       token,
@@ -85,8 +116,8 @@ export const authHandlers = [
   }),
 
   http.post('/api/auth/login', async ({ request }) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
-    const body = (await request.json()) as { email: string; password: string };
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const body = (await request.json()) as LoginRequest;
 
     if (!body.email && !body.password) {
       return HttpResponse.json({ message: 'Email and password are required' }, { status: 400 });
@@ -104,7 +135,9 @@ export const authHandlers = [
       user: {
         id: user.id,
         email: user.email,
-        name: user.name,
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
         avatar: user.avatar,
       },
       token,
@@ -128,7 +161,9 @@ export const authHandlers = [
     return HttpResponse.json({
       id: user.id,
       email: user.email,
-      name: user.name,
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
       avatar: user.avatar,
     });
   }),

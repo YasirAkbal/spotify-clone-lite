@@ -2,17 +2,8 @@
  * Genre/Category API Types
  */
 
-export interface Genre {
-  id: string;
-  name: string;
-  color: string;
-  image: {
-    url: string;
-    alt: string;
-  };
-}
+import type { GenreSchema, GenresResponseSchema } from '@/features/search/schemas';
+import type z from 'zod';
 
-export interface GenresResponse {
-  genres: Genre[];
-  total: number;
-}
+export type Genre = z.infer<typeof GenreSchema>;
+export type GenresResponse = z.infer<typeof GenresResponseSchema>;

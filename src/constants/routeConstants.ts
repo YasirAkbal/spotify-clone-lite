@@ -6,4 +6,5 @@ export const ROUTES = {
   SEARCH: '/search',
   DOWNLOAD: '/download',
   PLAYLIST_DETAIL: '/playlist',
+  REGISTER: '/register',
 } as const;

@@ -7,7 +7,19 @@ const TOKEN = 'token';
 const storedToken = localStorage.getItem(TOKEN);
 
 const initialState: FakeAuthState = {
-  auth: storedToken ? { user: { id: '', email: '' }, token: storedToken } : null,
+  auth: storedToken
+    ? {
+        user: {
+          id: '',
+          email: '',
+          username: '',
+          firstName: '',
+          lastName: '',
+          avatar: '',
+        },
+        token: storedToken,
+      }
+    : null,
   isAuthenticated: Boolean(storedToken),
 };
 

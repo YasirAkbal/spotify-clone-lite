@@ -15,6 +15,8 @@
 
 export * from './api';
 
-export * from './store';
+// Re-export store types excluding OAuthPayload to avoid conflict with api/auth.ts
+export type { OAuthState, FakeAuthUser, FakeAuthPayload, FakeAuthState } from './store/auth';
+export type { UserState } from './store/user';
 
 export * from './components';

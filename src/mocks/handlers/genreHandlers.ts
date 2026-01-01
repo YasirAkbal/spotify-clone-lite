@@ -1,7 +1,5 @@
 import { http, HttpResponse } from 'msw';
 
-// Picsum Photos - Open source, free image service
-// Using seed for consistent images per genre
 const getImageUrl = (seed: string) => `https://picsum.photos/seed/${seed}/300/300`;
 
 const genres = [
@@ -51,7 +49,7 @@ export const genreHandlers = [
     const limit = parseInt(url.searchParams.get('limit') || '30');
     const offset = parseInt(url.searchParams.get('offset') || '0');
 
-    await new Promise((resolve) => setTimeout(resolve, 300)); // Simulate network delay
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
     const paginatedGenres = genresWithImages.slice(offset, offset + limit);
 
