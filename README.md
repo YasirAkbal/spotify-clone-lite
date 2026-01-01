@@ -47,5 +47,5 @@ The project is organized by features for scalability and maintainability:
 
 _Note: Detailed documentation will be added once the project is completed._
 
-Disclaimer: This project is an educational clone of Spotify built for professional learning purposes.
-It is not affiliated with Spotify. All content is accessed through the public Spotify Web API.\_
+_Disclaimer: This project is an educational clone of Spotify built for professional learning purposes.
+It is not affiliated with Spotify. All content is accessed through the public Spotify Web API._
