@@ -1,28 +1,21 @@
-import { ROUTES } from '@/constants/routeConstants';
-import { NavLink } from 'react-router-dom';
+import type { Genre } from '../schemas';
 
-export default function CategoryCard({
-  playlistId,
-  color,
-  image,
-}: {
-  playlistId: string;
-  color: string;
-  image: { src: string; alt: string };
-}) {
+interface CategoryCardProps {
+  genre: Genre;
+}
+
+export default function CategoryCard({ genre }: CategoryCardProps) {
   return (
-    <NavLink to={`${ROUTES.PLAYLIST_DETAIL}/${playlistId}`}>
-      <div
-        style={{ backgroundColor: color }}
-        className="rounded-sm h-22 p-3 relative overflow-hidden"
-      >
-        <p className="font-bold">Müzik</p>
-        <img
-          src={image.src}
-          alt={image.alt}
-          className="w-1/3 absolute bottom-0 -right-5 rotate-30"
-        />
-      </div>
-    </NavLink>
+    <div
+      style={{ backgroundColor: genre.color }}
+      className="rounded-sm h-22 p-3 relative overflow-hidden"
+    >
+      <p className="font-bold">{genre.name}</p>
+      <img
+        src={genre.image.url}
+        alt={genre.image.alt}
+        className="w-1/3 absolute bottom-0 -right-5 rotate-30 rounded-sm"
+      />
+    </div>
   );
 }

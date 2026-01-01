@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/Button';
 import { PlayButton } from '@/components/ui/PlayButton';
 import playlistImage from '@/assets/images/unnamed.png';
 import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import BackButton from '@/components/ui/BackButton';
 
 function PlayListDetailListItem() {
