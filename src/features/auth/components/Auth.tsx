@@ -5,7 +5,7 @@ import FormField from '../../../components/ui/FormField';
 import TextInput from '../../../components/ui/TextInput';
 import { Button } from '../../../components/ui/Button';
 import { useAuth } from '../hooks/useFakeAuth';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import useOAuth from '../hooks/useOAuth';
 import { ROUTES } from '../../../constants/routeConstants';
 import { MockLoginFormSchema } from '../schemas/mockAuth';
@@ -27,16 +27,7 @@ export default function Login() {
     login(data);
   };
 
-  const navigate = useNavigate();
-
-  const { generateCodeVerifier, generateCodeChallange, getAuthUrl } = useOAuth();
-
-  async function handleOAuthLogin() {
-    generateCodeVerifier();
-    await generateCodeChallange();
-    const authUrl = getAuthUrl();
-    navigate(authUrl);
-  }
+  const { handleOAuthLogin } = useOAuth();
 
   if (isAuthenticated) {
     return <Navigate to={ROUTES.HOME} replace />;

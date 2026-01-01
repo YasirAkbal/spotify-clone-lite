@@ -111,6 +111,13 @@ export default function useOAuth() {
     return tokenStorage.getAccessToken();
   }
 
+  async function handleOAuthLogin() {
+    generateCodeVerifier();
+    await generateCodeChallange();
+    const authUrl = getAuthUrl();
+    navigate(authUrl);
+  }
+
   return {
     generateCodeVerifier,
     generateCodeChallange,
@@ -120,5 +127,6 @@ export default function useOAuth() {
       exchangeTokenMutation.mutate(code);
     },
     isExchanging: exchangeTokenMutation.isPending,
+    handleOAuthLogin,
   };
 }
