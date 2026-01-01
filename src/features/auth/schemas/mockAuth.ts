@@ -41,7 +41,7 @@ export const MockRegisterFormSchema = MockUserBaseSchema.pick({
   });
 
 export const MockLoginFormSchema = z.object({
-  email: emailSchema,
+  email: z.string().min(1, { message: 'Email or username is required' }),
   password: z.string().min(1, { message: 'Password is required' }),
 });
 

@@ -120,10 +120,15 @@ export const authHandlers = [
     const body = (await request.json()) as LoginRequest;
 
     if (!body.email && !body.password) {
-      return HttpResponse.json({ message: 'Email and password are required' }, { status: 400 });
+      return HttpResponse.json(
+        { message: 'Email/Username and password are required' },
+        { status: 400 }
+      );
     }
 
-    const user = users.find((u) => u.email === body.email && u.password === body.password);
+    const user = users.find(
+      (u) => (u.email === body.email || u.username === body.email) && u.password === body.password
+    );
 
     if (!user) {
       return HttpResponse.json({ message: 'Invalid credentials' }, { status: 401 });

@@ -1,5 +1,6 @@
 import { SpotifyLogo, GoogleIcon, FacebookColorIcon, AppleIcon } from '../../../assets/icons';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import FormField from '../../../components/ui/FormField';
 import TextInput from '../../../components/ui/TextInput';
 import { Button } from '../../../components/ui/Button';
@@ -7,17 +8,22 @@ import { useAuth } from '../hooks/useFakeAuth';
 import { Navigate, useNavigate } from 'react-router-dom';
 import useOAuth from '../hooks/useOAuth';
 import { ROUTES } from '../../../constants/routeConstants';
+import { MockLoginFormSchema } from '../schemas/mockAuth';
+import type { MockLoginFormData } from '@/types';
 
 export default function Login() {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
-  } = useForm<{ email: string; password: string }>();
+  } = useForm<MockLoginFormData>({
+    resolver: zodResolver(MockLoginFormSchema),
+    mode: 'onChange',
+  });
 
-  const { login, isLoggingIn, loginError, isAuthenticated } = useAuth();
+  const { login, isLoggingIn, loginError, isAuthenticated, isLoginError } = useAuth();
 
-  const onSubmit = (data: { email: string; password: string }) => {
+  const onSubmit = (data: MockLoginFormData) => {
     login(data);
   };
 
@@ -47,30 +53,36 @@ export default function Login() {
           className="flex flex-col gap-4 items-center w-full max-w-[450px] mt-6"
           onSubmit={handleSubmit(onSubmit)}
         >
+          {(errors.root || isLoginError) && (
+            <div className="text-red-500 text-center p-2 bg-red-100 rounded">
+              {errors.root?.message || (loginError as Error)?.message}
+            </div>
+          )}
+
           <FormField
             label="E-posta adresi veya kullanıcı adı"
             id="email"
-            error={errors.email?.message as string | undefined}
+            error={errors.email?.message}
             className="w-full"
           >
             <TextInput
               id="email"
-              type="email"
+              type="text"
               error={!!errors.email || !!loginError}
-              {...register('email', { required: 'E-posta gerekli' })}
+              {...register('email')}
             />
           </FormField>
           <FormField
             label="Parola"
             id="password"
             className="w-full"
-            error={errors.password?.message as string | undefined}
+            error={errors.password?.message}
           >
             <TextInput
               id="password"
               type="password"
               error={!!errors.password || !!loginError}
-              {...register('password', { required: 'Parola gerekli' })}
+              {...register('password')}
             />
           </FormField>
           <Button
@@ -78,7 +90,7 @@ export default function Login() {
             size="lg"
             type="submit"
             className="w-full"
-            disabled={isLoggingIn}
+            disabled={isLoggingIn || !isValid}
           >
             Oturum aç
           </Button>

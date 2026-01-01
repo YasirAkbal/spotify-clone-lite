@@ -1,8 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import { setAuth, logout } from '../store/fakeAuthSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import axios from 'axios';
 import { useEffect } from 'react';
+import { fetchMockApi } from '../../../lib/mockApiClient';
+import { MockAuthResponseSchema } from '../schemas';
+import type { MockLoginRequest } from '@/types/api/auth';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -16,10 +18,13 @@ export const useAuth = () => {
       }
 
       try {
-        const res = await axios.get('/api/auth/me', {
+        const response = await fetchMockApi(MockAuthResponseSchema, {
           headers: { Authorization: `Bearer ${token}` },
+          method: 'get',
+          url: '/api/auth/me',
         });
-        dispatch(setAuth({ user: res.data, token }));
+
+        dispatch(setAuth({ user: response.user, token }));
       } catch {
         dispatch(logout());
       }
@@ -29,21 +34,14 @@ export const useAuth = () => {
   }, []);
 
   const loginMutation = useMutation({
-    mutationFn: async (credentials: { email: string; password?: string }) => {
-      const res = await axios.post('/api/auth/login', credentials);
+    mutationFn: async (credentials: MockLoginRequest) => {
+      const response = await fetchMockApi(MockAuthResponseSchema, {
+        method: 'post',
+        url: '/api/auth/login',
+        data: credentials,
+      });
 
-      return res.data;
-    },
-    onSuccess: (data) => {
-      dispatch(setAuth({ user: data.user, token: data.token }));
-    },
-  });
-
-  const signupMutation = useMutation({
-    mutationFn: async (data: { email: string; password: string }) => {
-      const res = await axios.post('/api/auth/signup', data);
-
-      return res.data;
+      return response;
     },
     onSuccess: (data) => {
       dispatch(setAuth({ user: data.user, token: data.token }));
@@ -59,15 +57,13 @@ export const useAuth = () => {
     user: auth.auth?.user ?? null,
     isAuthenticated: auth.isAuthenticated,
     token: auth.auth?.token ?? null,
+    isLoginError: Boolean(loginMutation.error),
     // Methods
     login: loginMutation.mutate,
-    signup: signupMutation.mutate,
     logout: handleLogout,
     // Loading states
     isLoggingIn: loginMutation.isPending,
-    isSigningUp: signupMutation.isPending,
     // Errors
     loginError: loginMutation.error,
-    signupError: signupMutation.error,
   };
 };

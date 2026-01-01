@@ -5,7 +5,7 @@ import { z } from 'zod';
  * These are used across different features (register, profile update, etc.)
  */
 
-export const emailSchema = z.string().email({ message: 'Invalid email format' });
+export const emailSchema = z.email({ message: 'Invalid email format' });
 
 export const passwordSchema = z
   .string()
