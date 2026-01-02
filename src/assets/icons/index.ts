@@ -23,5 +23,8 @@ export { GoogleIcon } from './GoogleIcon';
 export { FacebookColorIcon } from './FacebookColorIcon';
 export { AppleIcon } from './AppleIcon';
 export { DefaultUserProfileAvatarIcon } from './DefaultUserProfileAvatarIcon';
+export { OpenLibraryIcon } from './OpenLibraryIcon';
+export { CloseRightSidebarIcon } from './CloseRightSidebarIcon';
+export { LeftIcon } from './LeftIcon';
 
 export type { IconProps } from '../../types';

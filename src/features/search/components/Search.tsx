@@ -11,7 +11,7 @@ export default function Search() {
   const navigate = useNavigate();
 
   return (
-    <section className="flex flex-col gap-y-4 py-8">
+    <section className="flex flex-col gap-y-4 py-8 px-1">
       <h1 className="text-larger-2">Ara</h1>
 
       <Button

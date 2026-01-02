@@ -8,4 +8,5 @@ export const ROUTES = {
   DOWNLOAD: '/download',
   PLAYLIST_DETAIL: '/playlist',
   REGISTER: '/register',
+  NOTIFICATIONS: '/notifications',
 } as const;

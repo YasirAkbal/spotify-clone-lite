@@ -27,31 +27,42 @@ export default function HomePage() {
 
   return (
     <div>
+      {/* Desktop Layout */}
       <div className="hidden md:block">
-        <Tabs.Root className="TabsRoot text-white" defaultValue="all">
-          <Tabs.List className="TabsList mb-6" aria-label="Select media type">
-            <Tabs.Trigger className="TabsTrigger" value="all">
+        <Tabs.Root className="text-white" defaultValue="all">
+          <Tabs.List className="flex gap-2 mb-8" aria-label="Select media type">
+            <Tabs.Trigger
+              className="px-4 py-2 rounded-full text-sm font-bold bg-encore-background-elevated-base hover:bg-encore-background-elevated-highlight data-[state=active]:bg-white data-[state=active]:text-black transition-colors cursor-pointer"
+              value="all"
+            >
               Tümü
             </Tabs.Trigger>
-            <Tabs.Trigger className="TabsTrigger" value="music">
+            <Tabs.Trigger
+              className="px-4 py-2 rounded-full text-sm font-bold bg-encore-background-elevated-base hover:bg-encore-background-elevated-highlight data-[state=active]:bg-white data-[state=active]:text-black transition-colors cursor-pointer"
+              value="music"
+            >
               Müzik
             </Tabs.Trigger>
-            <Tabs.Trigger className="TabsTrigger" value="podcasts">
+            <Tabs.Trigger
+              className="px-4 py-2 rounded-full text-sm font-bold bg-encore-background-elevated-base hover:bg-encore-background-elevated-highlight data-[state=active]:bg-white data-[state=active]:text-black transition-colors cursor-pointer"
+              value="podcasts"
+            >
               Podcast'ler
             </Tabs.Trigger>
           </Tabs.List>
-          <Tabs.Content className="TabsContent" value="all">
+          <Tabs.Content className="focus:outline-none" value="all">
             <AllTabContent />
           </Tabs.Content>
-          <Tabs.Content className="TabsContent" value="music">
+          <Tabs.Content className="focus:outline-none" value="music">
             <MusicTabContent />
           </Tabs.Content>
-          <Tabs.Content className="TabsContent" value="podcasts">
+          <Tabs.Content className="focus:outline-none" value="podcasts">
             <PodcastsTabContent />
           </Tabs.Content>
         </Tabs.Root>
       </div>
 
+      {/* Mobile Layout */}
       <div className="md:hidden">
         <HomeMobileHeader />
         <AllTabContent />

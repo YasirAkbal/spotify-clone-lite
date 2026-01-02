@@ -12,7 +12,7 @@ export default function HomeMobileHeader() {
 
   return (
     <>
-      <header className="flex md:hidden items-center justify-between mb-8 -ml-1 pt-1">
+      <header className="flex md:hidden items-center justify-between mb-8 pt-1 pr-3">
         <p className="text-larger text-white font-bold">{greeting}</p>
         <button type="button" aria-label="Ayarlar" className="p-2" onClick={openSettings}>
           <SettingsIcon size={24} />

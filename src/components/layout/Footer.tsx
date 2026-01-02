@@ -28,7 +28,7 @@ const FooterLinkSection = ({ title, links }: FooterLinkSectionProps) => (
 
 export const Footer = () => {
   return (
-    <footer data-testid="footer-div" className="bg-footer-background w-full mt-12 mb-30">
+    <footer data-testid="footer-div" className="bg-footer-background w-full mt-12 mb-30 px-2">
       {/* Top Section - Links and Social */}
       <div className="flex flex-col justify-between gap-6 mb-10">
         {/* Navigation Links */}

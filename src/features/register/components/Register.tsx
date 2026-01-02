@@ -49,7 +49,7 @@ export default function Register() {
   };
 
   return (
-    <section>
+    <section className="px-4">
       <div className="flex flex-col items-center mt-12 gap-4">
         <SpotifyLogo size={32} />
         <h1 className="text-larger-2">Spotify'a katıl</h1>
@@ -167,7 +167,7 @@ export default function Register() {
           />
         </FormField>
 
-        <Button variant="spotify" type="submit" disabled={isPending || !isValid}>
+        <Button variant="spotify" type="submit" disabled={isPending || !isValid} className="mt-2">
           {isPending ? 'Registering...' : 'Register'}
         </Button>
       </form>

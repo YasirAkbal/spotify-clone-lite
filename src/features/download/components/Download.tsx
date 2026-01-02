@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/Button';
 
 export default function Download() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#c44fc4] via-[#5a3d7a] to-[#1a1a1a] -m-4 p-4">
+    <div className="min-h-screen bg-gradient-to-b from-[#c44fc4] via-[#5a3d7a] to-[#1a1a1a] -m-4 p-5">
       <BackButton />
 
       <section className="flex flex-col gap-y-2 justify-center items-center bg-white/35 rounded-lg mt-4 p-4">
