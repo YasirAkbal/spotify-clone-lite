@@ -9,6 +9,8 @@ import Search from './features/search/components/Search';
 import Download from './features/download/components/Download';
 import PlaylistDetail from './features/playlists/components/PlaylistDetail';
 import Register from './features/register/components/Register';
+import SearchRecent from './features/search/components/SearchRecent';
+import UserProfile from './features/user/components/UserProfile.tsx';
 
 function App() {
   return (
@@ -22,8 +24,12 @@ function App() {
           <Route path={ROUTES.DOWNLOAD} element={<Download />} />
           <Route path={ROUTES.PLAYLIST_DETAIL} element={<PlaylistDetail />} />
           <Route path={ROUTES.REGISTER} element={<Register />} />
+          <Route path={ROUTES.SEARCH_RECENT} element={<SearchRecent />} />
+          <Route path={ROUTES.PROFILE} element={<UserProfile />} />
 
-          <Route element={<AuthRequired />}>{/* Protected routes go here */}</Route>
+          <Route element={<AuthRequired />}>
+            {/*<Route path={ROUTES.PROFILE} element={<UserProfile />} />*/}
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -27,7 +27,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <div className="hidden">
+      <div className="hidden md:block">
         <Tabs.Root className="TabsRoot text-white" defaultValue="all">
           <Tabs.List className="TabsList mb-6" aria-label="Select media type">
             <Tabs.Trigger className="TabsTrigger" value="all">
@@ -52,12 +52,10 @@ export default function HomePage() {
         </Tabs.Root>
       </div>
 
-      <div>
+      <div className="md:hidden">
         <HomeMobileHeader />
         <AllTabContent />
       </div>
-
-      <section></section>
     </div>
   );
 }

@@ -3,15 +3,23 @@ import { Button } from '@/components/ui/Button';
 import CategoryCard from './CategoryCard.tsx';
 import { useQuery } from '@tanstack/react-query';
 import { genreQueries } from '@/services/api/genreQueries';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants/routeConstants.ts';
 
 export default function Search() {
   const { data, isLoading, error } = useQuery(genreQueries.getGenres());
+  const navigate = useNavigate();
 
   return (
     <section className="flex flex-col gap-y-4 py-8">
       <h1 className="text-larger-2">Ara</h1>
 
-      <Button size="search" variant="search" className="w-full rounded-sm text-base">
+      <Button
+        size="search"
+        variant="search"
+        className="w-full rounded-sm text-base"
+        onClick={() => navigate(ROUTES.SEARCH_RECENT)}
+      >
         <div className="flex items-center gap-2">
           <SearchIcon />
           <span>Ne dinlemek istiyorsun?</span>

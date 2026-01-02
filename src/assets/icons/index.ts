@@ -22,5 +22,6 @@ export { PlayIcon } from './PlayIcon';
 export { GoogleIcon } from './GoogleIcon';
 export { FacebookColorIcon } from './FacebookColorIcon';
 export { AppleIcon } from './AppleIcon';
+export { DefaultUserProfileAvatarIcon } from './DefaultUserProfileAvatarIcon';
 
 export type { IconProps } from '../../types';
