@@ -46,18 +46,16 @@ export default function RightSidebar() {
           </div>
         </aside>
       ) : (
-        <div
-          className="h-full w-6 bg-encore-background-base rounded-lg flex items-center justify-center transition-all duration-200 hover:w-8 hover:bg-encore-background-elevated-base group cursor-pointer"
-          onClick={() => setIsOpen(true)}
+        <Button
+          asChild
+          variant="ghost"
+          size="icon"
+          className="h-full w-6 bg-encore-background-base rounded-lg flex items-center justify-center transition-all duration-200 hover:w-8 hover:bg-encore-background-elevated-base text-encore-text-subdued hover:text-white cursor-pointer"
         >
-          <Button
-            variant="ghost"
-            size="icon"
-            className="w-full h-12 p-0 text-encore-text-subdued group-hover:text-white transition-colors hover:bg-transparent"
-          >
+          <div onClick={() => setIsOpen(true)}>
             <LeftIcon size={16} />
-          </Button>
-        </div>
+          </div>
+        </Button>
       )}
     </div>
   );

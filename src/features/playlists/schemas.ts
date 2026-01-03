@@ -63,7 +63,7 @@ export const TrackSchema = z.object({
   restrictions: RestrictionsSchema.optional(),
   name: z.string(),
   popularity: z.number().int().min(0).max(100),
-  preview_url: z.string().url().nullable(),
+  preview_url: z.url().nullable(),
   track_number: z.number().int(),
   type: z.literal('track'),
   uri: z.string(),

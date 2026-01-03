@@ -58,7 +58,11 @@ function LibraryPopover({ onClose, navTop, buttonCenterX }: LibraryPopoverProps)
   );
 }
 
-export default function BottomNavigation() {
+export default function BottomNavigation({
+  onNavTopChange,
+}: {
+  onNavTopChange?: (top: number) => void;
+}) {
   const navRef = useRef<HTMLElement>(null);
   const libraryButtonRef = useRef<HTMLDivElement>(null);
   const [showPopover, setShowPopover] = useState(false);
@@ -68,7 +72,9 @@ export default function BottomNavigation() {
   useEffect(() => {
     const updatePositions = () => {
       if (navRef.current) {
-        setNavTop(navRef.current.getBoundingClientRect().top);
+        const navTop = navRef.current.getBoundingClientRect().top;
+        setNavTop(navTop);
+        onNavTopChange?.(navTop);
       }
       if (libraryButtonRef.current) {
         const rect = libraryButtonRef.current.getBoundingClientRect();
@@ -79,7 +85,7 @@ export default function BottomNavigation() {
     updatePositions();
     window.addEventListener('resize', updatePositions);
     return () => window.removeEventListener('resize', updatePositions);
-  }, [showPopover]);
+  }, [showPopover, onNavTopChange]);
 
   const handleLibraryClick = (e: React.MouseEvent) => {
     e.preventDefault();

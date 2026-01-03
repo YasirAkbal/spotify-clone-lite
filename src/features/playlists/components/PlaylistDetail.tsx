@@ -7,32 +7,23 @@ import BackButton from '@/components/ui/BackButton';
 
 function PlayListDetailListItem() {
   return (
-    <Button
-      asChild
-      className="flex justify-start gap-x-3 w-full bg-inherit px-0"
-      onClick={() => alert('Parent Button')}
-    >
-      <div role="button" tabIndex={0}>
-        <img src={playlistImage} alt="Playlist Cover" className="w-12 rounded" />
-        <div className="flex flex-col gap-y-1 items-start">
-          <Button
-            variant="link"
-            className="m-0 p-0 h-fit w-fit text-white hover:underline font-medium"
-            onClick={(e) => {
-              e.stopPropagation();
-              alert('Child Button');
-            }}
-          >
-            <NavLink to="/intl-tr/track">Şarkı İsmi</NavLink>
-          </Button>
-          <p className="text-spotify-lightgray text-sm">Sanatçı(lar)</p>
-        </div>
-
-        <Button className="bg-inherit [&_svg]:size-6 p-0 ml-auto">
-          <MoreIcon className="text-spotify-lightgray hover:text-white" />
+    <div className="flex justify-start gap-x-3 w-full bg-inherit px-0">
+      <img src={playlistImage} alt="Playlist Cover" className="w-12 rounded" />
+      <div className="flex flex-col gap-y-1 items-start">
+        <Button
+          asChild
+          variant="link"
+          className="m-0 p-0 h-fit w-fit text-white hover:underline font-medium"
+        >
+          <NavLink to="/intl-tr/track">Şarkı İsmi</NavLink>
         </Button>
+        <p className="text-spotify-lightgray text-sm">Sanatçı(lar)</p>
       </div>
-    </Button>
+
+      <Button className="bg-inherit [&_svg]:size-6 p-0 ml-auto">
+        <MoreIcon className="text-spotify-lightgray hover:text-white" />
+      </Button>
+    </div>
   );
 }
 

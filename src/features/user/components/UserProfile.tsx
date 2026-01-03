@@ -28,7 +28,7 @@ export default function UserProfile() {
         </div>
       </section>
 
-      <section className="mt-12">
+      <section className="mt-12 px-2">
         <h2 className="text-larger-2">Hesap Bilgileri</h2>
 
         <div className="flex flex-col gap-4 mt-6">

@@ -1,10 +1,14 @@
+import MediaPlayer from '@/features/player/components/MediaPlayer';
 import BottomNavigation from './BottomNavigation';
+import { useState } from 'react';
 
 export default function BottomBar() {
+  const [bottomNavTop, setBottomNavTop] = useState(0);
+
   return (
-    <>
-      {/* Audio player for mobile layouts will be here*/}
-      <BottomNavigation />
-    </>
+    <div>
+      <MediaPlayer bottomNavTop={bottomNavTop} />
+      <BottomNavigation onNavTopChange={(top: number) => setBottomNavTop(top)} />
+    </div>
   );
 }

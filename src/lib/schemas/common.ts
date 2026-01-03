@@ -1,4 +1,13 @@
 import { z } from 'zod';
+import type {
+  ExternalUrls,
+  SpotifyImage,
+  SpotifyImageWithDimensions,
+  PagingObject,
+  UserRef,
+  UserWithDisplayName,
+  Restrictions,
+} from '@/types/api/common';
 
 /**
  * Common Zod Schemas
@@ -7,21 +16,16 @@ import { z } from 'zod';
 
 export const ExternalUrlsSchema = z.object({
   spotify: z.url(),
-});
-
-export type ExternalUrls = z.infer<typeof ExternalUrlsSchema>;
+}) satisfies z.ZodSchema<ExternalUrls>;
 
 export const ImageSchema = z.object({
   url: z.url(),
   height: z.number().int().optional(),
   width: z.number().int().optional(),
-});
+}) satisfies z.ZodSchema<SpotifyImage>;
 
-export type SpotifyImage = z.infer<typeof ImageSchema>;
-
-export const ImageWithDimensionsSchema = ImageSchema.required();
-
-export type SpotifyImageWithDimensions = z.infer<typeof ImageWithDimensionsSchema>;
+export const ImageWithDimensionsSchema =
+  ImageSchema.required() satisfies z.ZodSchema<SpotifyImageWithDimensions>;
 
 export const createPagingSchema = <T extends z.ZodTypeAny>(itemSchema: T) =>
   z.object({
@@ -32,17 +36,7 @@ export const createPagingSchema = <T extends z.ZodTypeAny>(itemSchema: T) =>
     previous: z.url().nullable(),
     total: z.number().int(),
     items: z.array(itemSchema),
-  });
-
-export type PagingObject<T> = {
-  href: string;
-  limit: number;
-  next: string | null;
-  offset: number;
-  previous: string | null;
-  total: number;
-  items: T[];
-};
+  }) satisfies z.ZodSchema<PagingObject<z.infer<T>>>;
 
 export const UserRefSchema = z.object({
   external_urls: ExternalUrlsSchema,
@@ -50,18 +44,12 @@ export const UserRefSchema = z.object({
   id: z.string(),
   type: z.literal('user'),
   uri: z.string(),
-});
-
-export type UserRef = z.infer<typeof UserRefSchema>;
+}) satisfies z.ZodSchema<UserRef>;
 
 export const UserWithDisplayNameSchema = UserRefSchema.extend({
   display_name: z.string(),
-});
-
-export type UserWithDisplayName = z.infer<typeof UserWithDisplayNameSchema>;
+}) satisfies z.ZodSchema<UserWithDisplayName>;
 
 export const RestrictionsSchema = z.object({
   reason: z.string(),
-});
-
-export type Restrictions = z.infer<typeof RestrictionsSchema>;
+}) satisfies z.ZodSchema<Restrictions>;

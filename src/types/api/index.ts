@@ -8,3 +8,5 @@ export * from './auth';
 export * from './user';
 export * from './playlists';
 export * from './genres';
+export * from './common';
+export * from './player';

@@ -26,5 +26,6 @@ export { DefaultUserProfileAvatarIcon } from './DefaultUserProfileAvatarIcon';
 export { OpenLibraryIcon } from './OpenLibraryIcon';
 export { CloseRightSidebarIcon } from './CloseRightSidebarIcon';
 export { LeftIcon } from './LeftIcon';
+export { PauseIcon } from './PauseIcon';
 
 export type { IconProps } from '../../types';

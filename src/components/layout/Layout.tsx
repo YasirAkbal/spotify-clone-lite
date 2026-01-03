@@ -4,9 +4,9 @@ import LeftSidebar from './LeftSidebar';
 import RightSidebar from './RightSidebar';
 import { ErrorBoundary } from 'react-error-boundary';
 import Fallback from './Fallback';
-import BottomNavigation from './BottomNavigation';
 import { Footer } from './Footer';
 import { ROUTES } from '../../constants/routeConstants';
+import BottomBar from './BottomBar';
 
 const MOBILE_FOOTER_ROUTES = [ROUTES.HOME, ROUTES.PLAYLIST_DETAIL] as const;
 
@@ -22,7 +22,7 @@ export default function Layout() {
       <div className="md:hidden h-screen flex flex-col overflow-x-hidden py-4 px-2">
         <main className="flex-1 min-w-0">
           <Outlet />
-          <BottomNavigation />
+          <BottomBar />
         </main>
         <div className={footerVisibilityClass}>
           <Footer />
