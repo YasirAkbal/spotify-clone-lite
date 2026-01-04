@@ -1,6 +1,6 @@
 import BackButton from '@/components/ui/BackButton';
 import TextInput from '@/components/ui/TextInput';
-import { SearchIcon } from 'lucide-react';
+import { SearchIcon } from '@/assets/icons/SearchIcon';
 
 export default function SearchRecent() {
   return (

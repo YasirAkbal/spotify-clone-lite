@@ -1,7 +1,6 @@
 import { useRef } from 'react';
-import musicFile from '@/assets/music/music-free-458044.mp3';
 import { useAppSelector, useAppDispatch } from '@/app/hooks';
-import { setPlayingStatus } from '../store/mediaPlayerSlice';
+import { setPlayingStatus, setCurrentTimestamp, setDuration } from '../store/mediaPlayerSlice';
 import { PlayIcon, PauseIcon, LikeIcon } from '@/assets/icons';
 import { Button } from '@/components/ui/Button';
 
@@ -9,6 +8,8 @@ export default function MediaPlayer({ bottomNavTop }: { bottomNavTop: number }) 
   const ref = useRef<HTMLAudioElement>(null);
   const dispatch = useAppDispatch();
   const isPlaying = useAppSelector((state) => state.mediaPlayer.isPlaying);
+  const currentTimestamp = useAppSelector((state) => state.mediaPlayer.currentTimestamp);
+  const duration = useAppSelector((state) => state.mediaPlayer.duration);
 
   function handlePlayPause() {
     if (ref.current) {
@@ -21,6 +22,35 @@ export default function MediaPlayer({ bottomNavTop }: { bottomNavTop: number }) 
       }
     }
   }
+
+  function handleEnded() {
+    dispatch(setPlayingStatus(false));
+    dispatch(setCurrentTimestamp(0));
+  }
+
+  function handleLoadedMetadata() {
+    dispatch(setDuration(ref.current?.duration || 0));
+  }
+
+  function handleTimeUpdate() {
+    const audioElement = ref.current;
+    if (!audioElement) return;
+
+    dispatch(setCurrentTimestamp(audioElement.currentTime));
+  }
+
+  function handleProgressBarOnClick(e: React.MouseEvent<HTMLButtonElement>) {
+    const audioElement = ref.current;
+    if (!audioElement || !duration) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const newTime = (clickX / rect.width) * duration;
+
+    audioElement.currentTime = newTime;
+  }
+
+  const progressPercentage = duration > 0 ? (currentTimestamp / duration) * 100 : 0;
 
   return (
     <section
@@ -70,12 +100,25 @@ export default function MediaPlayer({ bottomNavTop }: { bottomNavTop: number }) 
         </div>
 
         {/* Progress Bar - row 3, spans all columns */}
-        <div className="w-full h-1 bg-white/20 rounded-full mt-1 col-span-full">
-          <div className={`h-full bg-white rounded-full w-[30%]`} />
-        </div>
+        <Button
+          variant="ghost"
+          onClick={handleProgressBarOnClick}
+          className="w-full h-1 p-0 gap-0 justify-start bg-white/20 rounded-full mt-1 col-span-full hover:bg-white/30"
+        >
+          <div
+            className="h-full bg-white rounded-full"
+            style={{ width: `${progressPercentage}%` }}
+          />
+        </Button>
 
-        <audio ref={ref}>
-          <source src={musicFile} type="audio/mpeg" />
+        <audio
+          ref={ref}
+          preload="metadata"
+          onTimeUpdate={handleTimeUpdate}
+          onEnded={handleEnded}
+          onLoadedMetadata={handleLoadedMetadata}
+        >
+          <source src="/music/music-free-458044.mp3" type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
       </div>

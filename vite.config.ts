@@ -12,7 +12,10 @@ export default defineConfig({
   },
   server: {
     host: '127.0.0.1',
-    port: 5173, // veya istediğiniz port
+    port: 5173,
+    headers: {
+      'Accept-Ranges': 'bytes',
+    },
   },
   resolve: {
     alias: {
