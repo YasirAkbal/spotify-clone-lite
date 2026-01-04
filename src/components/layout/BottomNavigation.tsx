@@ -106,14 +106,12 @@ export default function BottomNavigation({
         className="md:hidden flex fixed bottom-0 left-0 w-full justify-between items-center bg-black px-6 py-4 opacity-85 z-40"
       >
         {items.map(({ to, icon: Icon, label, showPopover: hasPopover }) => (
-          <div key={to} ref={hasPopover ? libraryButtonRef : undefined}>
-            <NavLink to={to} onClick={hasPopover ? handleLibraryClick : undefined}>
-              <div className="flex flex-col items-center justify-center gap-y-1">
-                <Icon size={24} />
-                <span className="text-smaller-2">{label}</span>
-              </div>
-            </NavLink>
-          </div>
+          <NavLink to={to} onClick={hasPopover ? handleLibraryClick : undefined}>
+            <div className="flex flex-col items-center justify-center gap-y-1">
+              <Icon size={24} />
+              <span className="text-smaller-2">{label}</span>
+            </div>
+          </NavLink>
         ))}
       </nav>
     </>

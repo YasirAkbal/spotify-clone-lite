@@ -9,11 +9,15 @@ const initialMediaPlayerState: MediaPlayerState = {
   duration: 0,
   album: {
     images: [],
+    name: '',
+    id: '',
   },
   artists: [],
   isPlaying: false,
   volumePercent: 100,
   currentTimestamp: 0,
+  isMuted: false,
+  previousVolume: 100,
 };
 
 const mediaPlayerSlice = createSlice({
@@ -23,9 +27,7 @@ const mediaPlayerSlice = createSlice({
     setTrack: (state, action: PayloadAction<Track>) => {
       state.id = action.payload.id;
       state.name = action.payload.name;
-      // Keep duration in seconds throughout the UI/player.
-      // Spotify API provides duration_ms.
-      state.duration = action.payload.duration_ms / 1000;
+      state.duration = action.payload.duration_ms;
       state.album = action.payload.album;
       state.artists = action.payload.artists.map((artist) => ({
         name: artist.name,
@@ -44,9 +46,22 @@ const mediaPlayerSlice = createSlice({
     setDuration: (state, action: PayloadAction<number>) => {
       state.duration = action.payload;
     },
+    setMuted: (state, action: PayloadAction<boolean>) => {
+      state.isMuted = action.payload;
+    },
+    setPreviousVolume: (state, action: PayloadAction<number>) => {
+      state.previousVolume = action.payload;
+    },
   },
 });
 
-export const { setTrack, setPlayingStatus, setVolumePercent, setCurrentTimestamp, setDuration } =
-  mediaPlayerSlice.actions;
+export const {
+  setTrack,
+  setPlayingStatus,
+  setVolumePercent,
+  setCurrentTimestamp,
+  setDuration,
+  setMuted,
+  setPreviousVolume,
+} = mediaPlayerSlice.actions;
 export default mediaPlayerSlice.reducer;

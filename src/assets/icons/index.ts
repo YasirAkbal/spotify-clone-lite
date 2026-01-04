@@ -28,4 +28,18 @@ export { CloseRightSidebarIcon } from './CloseRightSidebarIcon';
 export { LeftIcon } from './LeftIcon';
 export { PauseIcon } from './PauseIcon';
 
+// Player icons
+export { ShuffleIcon } from './ShuffleIcon';
+export { PreviousIcon } from './PreviousIcon';
+export { NextIcon } from './NextIcon';
+export { RepeatIcon } from './RepeatIcon';
+export { LyricsIcon } from './LyricsIcon';
+export { QueueIcon } from './QueueIcon';
+export { DeviceIcon } from './DeviceIcon';
+export { VolumeHighIcon } from './VolumeHighIcon';
+export { VolumeMuteIcon } from './VolumeMuteIcon';
+export { MiniPlayerIcon } from './MiniPlayerIcon';
+export { FullscreenIcon } from './FullscreenIcon';
+export { AddIcon } from './AddIcon';
+
 export type { IconProps } from '../../types';

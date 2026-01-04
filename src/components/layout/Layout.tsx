@@ -7,6 +7,7 @@ import Fallback from './Fallback';
 import { Footer } from './Footer';
 import { ROUTES } from '../../constants/routeConstants';
 import BottomBar from './BottomBar';
+import MediaPlayer from '@/features/player/components/MediaPlayer';
 
 const MOBILE_FOOTER_ROUTES = [ROUTES.HOME, ROUTES.PLAYLIST_DETAIL] as const;
 
@@ -30,7 +31,7 @@ export default function Layout() {
       </div>
 
       {/* Desktop Layout */}
-      <div className="hidden md:flex md:flex-col h-screen overflow-hidden bg-black p-2">
+      <div className="hidden md:flex md:flex-col h-screen overflow-hidden bg-black p-2 pb-[80px]">
         <Header />
 
         <div className="flex flex-1 overflow-hidden gap-x-2">
@@ -46,6 +47,9 @@ export default function Layout() {
           <RightSidebar />
         </div>
       </div>
+
+      {/* Media Player - Shown on both layouts */}
+      <MediaPlayer bottomNavTop={0} />
     </ErrorBoundary>
   );
 }
