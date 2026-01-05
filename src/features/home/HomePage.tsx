@@ -2,7 +2,7 @@ import { Tabs } from 'radix-ui';
 import AllTabContent from './components/AllTabContent';
 import MusicTabContent from './components/MusicTabContent';
 import PodcastsTabContent from './components/PodcastsTabContent';
-import HomeMobileHeader from './components/HomeMobileHeader';
+import MobileHeader from '@/components/layout/MobileHeader';
 /*import useSpotifyProfile from '../user/hooks/useSpotifyProfile';
 import { useEffect } from 'react';
 import { playlistQueries } from '../../services/api/playlistsQueries';
@@ -64,7 +64,7 @@ export default function HomePage() {
 
       {/* Mobile Layout */}
       <div className="md:hidden">
-        <HomeMobileHeader />
+        <MobileHeader />
         <AllTabContent />
       </div>
     </div>

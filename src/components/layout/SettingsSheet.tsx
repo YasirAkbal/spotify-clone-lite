@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router';
 import { CloseIcon, UpRightArrowIcon } from '@/assets/icons';
 import SettingsItem from './SettingsItem';
-import { settingsMenuSections } from '../constants/settingsMenu';
+import { settingsMenuSections } from './constants/settingsMenu';
 
 interface SettingsSheetProps {
   isOpen: boolean;
@@ -25,7 +25,7 @@ export default function SettingsSheet({ isOpen, onClose }: SettingsSheetProps) {
       className={`
         fixed inset-0 w-full h-full 
         bg-black z-50 md:hidden
-        transform transition-transform duration-500 ease-out
+        transform transition-transform duration-500 ease-out 
         ${isOpen ? 'translate-x-0' : 'translate-x-full'}
       `}
     >
