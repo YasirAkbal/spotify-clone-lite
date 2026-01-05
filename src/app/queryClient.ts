@@ -1,4 +1,5 @@
 import { QueryClient, QueryCache } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,7 +15,7 @@ export const queryClient = new QueryClient({
     onError: (error, query) => {
       if (typeof query.state.data !== 'undefined') {
         //toast notification
-        console.error('An error occurred:', error);
+        toast.error(error.message);
       }
     },
   }),

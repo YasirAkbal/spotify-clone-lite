@@ -8,6 +8,8 @@ import { queryClient } from './app/queryClient.ts';
 import { QueryClientProvider, QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
 import Fallback from './components/layout/Fallback.tsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 async function enableMocking() {
   if (process.env.NODE_ENV !== 'development') {
@@ -30,6 +32,18 @@ enableMocking().then(() => {
             <Provider store={store}>
               <QueryClientProvider client={queryClient}>
                 <App />
+                <ToastContainer
+                  position="bottom-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="dark"
+                />
               </QueryClientProvider>
             </Provider>
           </ErrorBoundary>
