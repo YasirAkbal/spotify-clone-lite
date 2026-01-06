@@ -482,8 +482,8 @@ spotify-web-app/
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/spotify-web-app.git
-   cd spotify-web-app
+   git clone https://github.com/YasirAkbal/spotify-clone-lite.git
+   cd spotify-clone-lite
    ```
 
 2. **Install dependencies**
