@@ -4,16 +4,12 @@ interface ProgressBarProps {
   progressPercentage: number;
   onProgressBarClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onMouseMove: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onMouseUp: () => void;
 }
 
 export default function ProgressBar({
   progressPercentage,
   onProgressBarClick,
   onMouseDown,
-  onMouseMove,
-  onMouseUp,
 }: ProgressBarProps) {
   return (
     <Button
@@ -21,9 +17,6 @@ export default function ProgressBar({
       type="button"
       onClick={onProgressBarClick}
       onMouseDown={onMouseDown}
-      onMouseMove={onMouseMove}
-      onMouseUp={onMouseUp}
-      onMouseLeave={onMouseUp}
       className="
         w-full h-1 p-0 gap-0 justify-start rounded-full transition-colors
         bg-white/20 hover:bg-white/30 mt-1 col-span-full

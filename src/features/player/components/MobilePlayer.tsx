@@ -63,8 +63,6 @@ export default function MobilePlayer({
           progressPercentage={progressBar.progressPercentage}
           onProgressBarClick={progressBar.handleProgressBarOnClick}
           onMouseDown={progressBar.progressBarHandleMouseDown}
-          onMouseMove={progressBar.progressBarHandleMouseMove}
-          onMouseUp={progressBar.progressBarHandleMouseUp}
         />
       </div>
     </section>

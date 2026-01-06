@@ -7,8 +7,6 @@ interface VolumeControlProps {
   onMuteToggle: () => void;
   onVolumeChange: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onMouseMove: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onMouseUp: () => void;
 }
 
 export default function VolumeControl({
@@ -17,8 +15,6 @@ export default function VolumeControl({
   onMuteToggle,
   onVolumeChange,
   onMouseDown,
-  onMouseMove,
-  onMouseUp,
 }: VolumeControlProps) {
   return (
     <div className="flex items-center gap-1">
@@ -42,9 +38,6 @@ export default function VolumeControl({
         type="button"
         onClick={onVolumeChange}
         onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-        onMouseLeave={onMouseUp}
         className="w-24 h-1 p-0 gap-0 justify-start bg-spotify-gray rounded-full hover:bg-spotify-gray group relative"
       >
         <div

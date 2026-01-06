@@ -59,8 +59,6 @@ export default function DesktopPlayer({
               progressPercentage={progressBar.progressPercentage}
               onProgressBarClick={progressBar.handleProgressBarOnClick}
               onMouseDown={progressBar.progressBarHandleMouseDown}
-              onMouseMove={progressBar.progressBarHandleMouseMove}
-              onMouseUp={progressBar.progressBarHandleMouseUp}
             />
 
             <span className="text-[0.6875rem] text-encore-text-subdued min-w-[40px]">
@@ -107,8 +105,6 @@ export default function DesktopPlayer({
             onMuteToggle={volumeControl.handleMuteToggle}
             onVolumeChange={volumeControl.handleVolumeChange}
             onMouseDown={volumeControl.volumeHandleMouseDown}
-            onMouseMove={volumeControl.volumeHandleMouseMove}
-            onMouseUp={volumeControl.volumeHandleMouseUp}
           />
 
           <Button

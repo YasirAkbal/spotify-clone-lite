@@ -7,14 +7,12 @@ import {
   setMuted,
   setPreviousVolume,
 } from '../store/mediaPlayerSlice';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
 export interface ProgressBarControl {
   progressPercentage: number;
   handleProgressBarOnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   progressBarHandleMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  progressBarHandleMouseMove: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  progressBarHandleMouseUp: () => void;
 }
 
 export interface VolumeControl {
@@ -23,8 +21,6 @@ export interface VolumeControl {
   handleVolumeChange: (e: React.MouseEvent<HTMLButtonElement>) => void;
   handleMuteToggle: () => void;
   volumeHandleMouseDown: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  volumeHandleMouseMove: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  volumeHandleMouseUp: () => void;
 }
 
 export interface UseMediaPlayerReturn {
@@ -49,8 +45,7 @@ export default function useMediaPlayer(): UseMediaPlayerReturn {
   const volumePercent = useAppSelector((state) => state.mediaPlayer.volumePercent);
   const isMuted = useAppSelector((state) => state.mediaPlayer.isMuted);
   const previousVolume = useAppSelector((state) => state.mediaPlayer.previousVolume);
-  const [progressBarIsDragging, setProgressBarIsDragging] = useState(false);
-  const [volumeIsDragging, setVolumeIsDragging] = useState(false);
+  const lastUpdateRef = useRef(0);
 
   function handlePlayPause() {
     const audioElement = ref.current;
@@ -81,35 +76,51 @@ export default function useMediaPlayer(): UseMediaPlayerReturn {
     const audioElement = ref.current;
     if (!audioElement) return;
 
-    dispatch(setCurrentTimestamp(audioElement.currentTime));
+    const now = Date.now();
+
+    // throttling
+    if (now - lastUpdateRef.current > 100) {
+      dispatch(setCurrentTimestamp(audioElement.currentTime));
+      lastUpdateRef.current = now;
+    }
   }
 
-  function handleProgressBarOnClick(e: React.MouseEvent<HTMLButtonElement>) {
+  function handleProgressBarOnClick(
+    e: React.MouseEvent<HTMLButtonElement> | { currentTarget: HTMLButtonElement; clientX: number }
+  ) {
     const audioElement = ref.current;
     if (!audioElement || !duration) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
+    const clickX = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
     const newTime = (clickX / rect.width) * duration;
 
     audioElement.currentTime = newTime;
+    dispatch(setCurrentTimestamp(newTime));
   }
 
   function progressBarHandleMouseDown(e: React.MouseEvent<HTMLButtonElement>) {
-    setProgressBarIsDragging(true);
-    handleProgressBarOnClick(e);
+    const progressBarElement = e.currentTarget;
+
+    const handleMouseMove = (event: MouseEvent) => {
+      handleProgressBarOnClick({
+        currentTarget: progressBarElement,
+        clientX: event.clientX,
+      });
+    };
+
+    const handleMouseUp = () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
   }
 
-  function progressBarHandleMouseMove(e: React.MouseEvent<HTMLButtonElement>) {
-    if (!progressBarIsDragging) return;
-    handleProgressBarOnClick(e);
-  }
-
-  function progressBarHandleMouseUp() {
-    setProgressBarIsDragging(false);
-  }
-
-  function handleVolumeChange(e: React.MouseEvent<HTMLButtonElement>) {
+  function handleVolumeChange(
+    e: React.MouseEvent<HTMLButtonElement> | { currentTarget: HTMLButtonElement; clientX: number }
+  ) {
     const audioElement = ref.current;
     if (!audioElement) return;
 
@@ -123,17 +134,22 @@ export default function useMediaPlayer(): UseMediaPlayerReturn {
   }
 
   function volumeHandleMouseDown(e: React.MouseEvent<HTMLButtonElement>) {
-    setVolumeIsDragging(true);
-    handleVolumeChange(e);
-  }
+    const volumeControlElement = e.currentTarget;
 
-  function volumeHandleMouseMove(e: React.MouseEvent<HTMLButtonElement>) {
-    if (!volumeIsDragging) return;
-    handleVolumeChange(e);
-  }
+    const handleMouseMove = (event: MouseEvent) => {
+      handleVolumeChange({
+        currentTarget: volumeControlElement,
+        clientX: event.clientX,
+      });
+    };
 
-  function volumeHandleMouseUp() {
-    setVolumeIsDragging(false);
+    const handleMouseUp = () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
   }
 
   function handleMuteToggle() {
@@ -167,8 +183,6 @@ export default function useMediaPlayer(): UseMediaPlayerReturn {
       progressPercentage,
       handleProgressBarOnClick,
       progressBarHandleMouseDown,
-      progressBarHandleMouseMove,
-      progressBarHandleMouseUp,
     },
     volumeControl: {
       volumePercent,
@@ -176,8 +190,6 @@ export default function useMediaPlayer(): UseMediaPlayerReturn {
       handleVolumeChange,
       handleMuteToggle,
       volumeHandleMouseDown,
-      volumeHandleMouseMove,
-      volumeHandleMouseUp,
     },
   };
 }
