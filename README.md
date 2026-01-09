@@ -50,7 +50,7 @@ The project has a solid foundation with **80%+ of the UI completed** for both mo
 
 This project implements **two separate authentication flows** for learning and demonstration purposes:
 
-#### 2️⃣ Spotify OAuth 2.0 with PKCE (Production Implementation)
+#### 1️⃣ Spotify OAuth 2.0 with PKCE (Production Implementation)
 
 > 🎯 **Purpose:** Real authentication to obtain access tokens from Spotify API for fetching user data and (future) music content.
 
@@ -60,7 +60,7 @@ This project implements **two separate authentication flows** for learning and d
 - **Auto Token Injection** - Axios interceptors automatically attach Bearer tokens to API requests
 - **Persistent Sessions** - Token storage with localStorage for session persistence
 
-#### 1️⃣ Fake Auth (Learning Implementation)
+#### 2️⃣ Fake Auth (Learning Implementation)
 
 > 🎓 **Purpose:** Built from scratch to understand JWT authentication flow, token management, and backend simulation.
 >
